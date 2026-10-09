@@ -39,13 +39,13 @@ const techniqueCards = [
         id: 3,
         title: "Hand Knotted",
         description: "Luxurious dense rugs crafted knot by knot with geometric pastel expressions.",
-        image: "/North_Expression_Craftsmanship_Techniques/3.png",
+        image: "/Hand_T.png",
     },
     {
         id: 4,
         title: "Hand Tufted",
         description: "Contemporary rugs with sculpted patterns, offering fast production and design freedom.",
-        image: "/North_Expression_Craftsmanship_Techniques/2.png",
+        image: "/Hand_tufted.png",
     },
 ];
 
@@ -180,7 +180,7 @@ function Hero() {
                     className="font-serif font-light text-[clamp(40px,4vw,88px)] text-[#2D2D2D] leading-[1.05] tracking-[-0.01em] mb-6 italic"
                 >
                     Our {" "}
-                    <em className="italic text-[#5d4037]">Craftsmanship Techniques</em>
+                    <em className="italic text-[#2D2D2D]">Craftsmanship Techniques</em>
                 </h1>
 
                 <p
@@ -190,12 +190,12 @@ function Hero() {
                 </p>
 
                 {/* SMALL GRADIENT DIVIDER LINE */}
-                <div
+                {/* <div
                     className="w-[1px] h-14 mt-4 md:mt-9 mx-auto"
                     style={{
-                        background: "linear-gradient(to bottom, #b07d4a, transparent)",
+                        background: "linear-gradient(to bottom, #E8E6E1, transparent)",
                     }}
-                />
+                /> */}
             </div>
         </header>
 
@@ -221,7 +221,7 @@ function TechniqueCard({ card }: any) {
                 }
             }}
             // Updated to rounded-2xl and transition-all duration-500
-            className="group relative overflow-hidden bg-[#f9f5f2] border border-[#eaddd7] rounded-2xl cursor-pointer transition-all duration-500 hover:shadow-xl"
+            className="group relative overflow-hidden bg-[#f9f5f2] border border-[#E8E6E1] rounded-2xl cursor-pointer transition-all duration-500 hover:shadow-xl"
         >
             {/* Aspect ratio container: aspect-[4/5] */}
             <div className="relative w-full aspect-[4/5] overflow-hidden">
@@ -357,7 +357,7 @@ function MaterialsSection() {
                         <h3 className="font-serif text-[clamp(22px,2.5vw,28px)] font-normal italic text-black mb-5">
                             Materials at North Expression
                         </h3>
-                        <div className="bg-[#f9f5f2] px-2 md:px-[clamp(28px,4vw,52px)] py-[clamp(32px,4vw,48px)] border-l-[3px] border-[#5d4037] shadow-sm">
+                        <div className="bg-[#F2EEE7] px-2 md:px-[clamp(28px,4vw,52px)] py-[clamp(32px,4vw,48px)] border-l-[3px] border-[#5d4037] shadow-sm">
                             <p className="text-[20px] font-light text-[#333] leading-[1.85] mb-7">
                                 Materials are not decoration — they are structure and memory. We design carpets not for trends, but for time, creating pieces that belong to architecture and evolve with living.
                             </p>
@@ -394,11 +394,11 @@ function TechniqueRow({ technique, isLast }: any) {
                 <p className="text-[19px] font-normal text-[#6B6B6B] leading-[1.85] mb-7 font-body">
                     {technique.description}
                 </p>
-                <ul className="list-none py-4 md:p-0 m-0 grid gap-[1px] bg-[#eaddd7]" style={{ gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr" }}>
+                <ul className="list-none py-4 md:p-0 m-0 grid gap-[1px] bg-[#F2EEE7]" style={{ gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr" }}>
                     {technique.features.map((feat: any, i: any) => (
                         <li key={i} className="px-3 md:px-6 py-2 md:py-5 text-[17px] font-normal text-[#555] tracking-[0.02em] flex items-center  gap-[12px]">
                             <span className="text-[#5d4037] text-[6px] flex-shrink-0">◆</span>
-                            {feat}..
+                            {feat}
                         </li>
                     ))}
                 </ul>

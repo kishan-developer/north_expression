@@ -8,11 +8,11 @@ export default function PrivateResidence() {
 
       {/* Title */}
       <div className="text-center space-y-2">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-900 font-serif">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-[#2D2D2D] font-serif">
           Private Residence
         </h1>
 
-        <p className="text-gray-500 text-xs sm:text-sm font-serif italic">
+        <p className="text-[#6B6B6B] text-xs sm:text-sm font-serif italic">
           Residential · Interior Concept
         </p>
       </div>
@@ -29,7 +29,7 @@ export default function PrivateResidence() {
       </div>
 
       {/* DESCRIPTION */}
-      <div className="max-w-4xl mx-auto text-center text-md md:text-[22px] font-serif  leading-relaxed text-gray-900">
+      <div className="max-w-4xl mx-auto text-center text-md md:text-[22px] font-serif  leading-relaxed text-[#6B6B6B]">
         <p className="mb-4">
           A bespoke rug created for a private residence in Stockholm — designed
           to bring warmth, softness, and quiet structure to the living space.
@@ -48,11 +48,11 @@ export default function PrivateResidence() {
 
         {/* LEFT */}
         <div>
-          <h3 className="text-lg md:text-lg font-semibold text-gray-900 mb-4 tracking-wider font-serif">
+          <h3 className="text-lg md:text-lg font-semibold text-[#2D2D2D] mb-4 tracking-wider font-serif">
             PROJECT DETAILS
           </h3>
 
-          <ul className="text-lg space-y-2 text-gray-900 font-body">
+          <ul className="text-lg space-y-2 text-[#6B6B6B] font-body">
             <li><strong>Sector:</strong> Residential</li>
             <li><strong>Location:</strong> Stockholm</li>
             <li><strong>Project Type:</strong> Interior Concept</li>
@@ -63,11 +63,11 @@ export default function PrivateResidence() {
 
         {/* RIGHT */}
         <div>
-          <h3 className="text-lg md:text-lg font-serif font-semibold text-gray-900 mb-4 tracking-wider">
+          <h3 className="text-lg md:text-lg font-serif font-semibold text-[#2D2D2D] mb-4 tracking-wider">
             SCOPE
           </h3>
 
-          <ul className="text-lg space-y-2 text-gray-900 font-body">
+          <ul className="text-lg space-y-2 text-[#6B6B6B] font-body">
             <li>• Custom rug concept</li>
             <li>• Size development</li>
             <li>• Palette refinement</li>

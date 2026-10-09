@@ -1,17 +1,23 @@
 "use client";
 
 import React, { useState } from "react";
-import { Mail, Phone, Globe, MessageSquare, MailIcon } from "lucide-react";
+import { Mail, Phone, Upload } from "lucide-react";
 
 const ContactUs = () => {
-  const [formType, setFormType] = useState('private');
+  const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setSelectedFiles(e.target.files);
+    }
+  };
 
   return (
     <section className="min-h-screen bg-background py-20 md:py-1 px-2 md:px-6 font-serif text-[#6B6B6B]">
       <div className="max-w-6xl mx-auto">
 
         {/* Top Navigation / Header Info */}
-        <div className="mb-16 hidden md:flex flex-col  items-center justify-center gap-4 text-lg text-[#6B6B6B] md:flex-row md:gap-8">
+        <div className="mb-16 hidden md:flex flex-col items-center justify-center gap-4 text-lg text-[#6B6B6B] md:flex-row md:gap-8">
           <div className="flex items-center gap-2">
             <Mail size={14} className="text-[#A88B7E]" /> info@northexpression.com
           </div>
@@ -34,7 +40,6 @@ const ContactUs = () => {
 
             <ul className="space-y-6">
               <li className="relative pl-6 before:content-['•'] before:absolute before:left-0 before:text-[#A88B7E]">
-                {/* <span className="mt-1 text-[#A88B7E]"><MailIcon /></span> */}
                 <p className="text-xs uppercase tracking-widest text-gray-500 font-bold">General information:</p>
                 <a href="mailto:info@northexpression.com" className="text-lg hover:underline">info@northexpression.com</a>
               </li>
@@ -45,7 +50,6 @@ const ContactUs = () => {
               </li>
 
               <li className="relative pl-6 before:content-['•'] before:absolute before:left-0 before:text-[#A88B7E]">
-                {/* <span className="mt-1 text-[#A88B7E]">📞</span> */}
                 <div>
                   <p className="text-xs uppercase tracking-widest text-gray-500 font-bold">Telephone and Whatsapp</p>
                   <p className="text-lg">+46707299390</p>
@@ -63,43 +67,19 @@ const ContactUs = () => {
             </p>
           </div>
 
-          {/* Right Column: Dynamic Form */}
+          {/* Right Column: Single Form */}
           <div className="lg:col-span-8">
-            <div className="bg-white p-3 md:p-6 md:p-10 shadow-sm border border-[#F2E8E5]">
-              <h3 className="text-center text-2xl font-light mb-8 text-[#2D2D2D]">Contact & Project Inquiry</h3>
+            <div className="bg-white p-6 md:p-10 shadow-sm border border-[#F2E8E5]">
+              <h3 className="text-center text-2xl md:text-3xl font-light mb-8 text-[#2D2D2D]">
+                Contact & Project Inquiry
+              </h3>
 
-              {/* Toggle Header */}
-              <div className="flex justify-center gap-8 border-b border-gray-100 pb-8 mb-8">
-                <label className="flex items-center gap-3 cursor-pointer group">
-                  <input
-                    type="radio"
-                    name="formType"
-                    checked={formType === 'private'}
-                    onChange={() => setFormType('private')}
-                    className="w-4 h-4 accent-[#A38A7E] cursor-pointer"
-                  />
-                  <span className={`text-sm font-medium tracking-wide transition-colors ${formType === 'private' ? 'text-[#A38A7E]' : 'group-hover:text-[#A38A7E]'}`}>
-                    Private Client
-                  </span>
-                </label>
-                <label className="flex items-center gap-3 cursor-pointer group">
-                  <input
-                    type="radio"
-                    name="formType"
-                    checked={formType === 'professional'}
-                    onChange={() => setFormType('professional')}
-                    className="w-4 h-4 accent-[#A38A7E] cursor-pointer"
-                  />
-                  <span className={`text-sm font-medium tracking-wide transition-colors ${formType === 'professional' ? 'text-[#A38A7E]' : 'group-hover:text-[#A38A7E]'}`}>
-                    Professional / Company
-                  </span>
-                </label>
-              </div>
-
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
                 {/* Full Name */}
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">Full Name *</label>
+                  <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">
+                    Full Name *
+                  </label>
                   <input
                     type="text"
                     required
@@ -108,74 +88,63 @@ const ContactUs = () => {
                   />
                 </div>
 
-                {/* Professional Only Field: Company Name */}
-                {formType === 'professional' && (
-                  <div className="flex flex-col gap-2 transition-all duration-300">
-                    <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">Company / Studio Name *</label>
-                    <input
-                      type="text"
-                       required
-                      placeholder="Enter your company or studio name"
-                      className="w-full border border-gray-200 bg-[#FAFAFA] p-3 text-sm focus:outline-none focus:ring-1 focus:ring-[#A38A7E]"
-                    />
-                  </div>
-                )}
-
-                {formType === 'professional' && (
-                  <div className="flex flex-col gap-2 transition-all duration-300">
-                    <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">Website URL</label>
-                    <input
-                      type="text"
-                      placeholder="Enter your website URL"
-                      className="w-full border border-gray-200 bg-[#FAFAFA] p-3 text-sm focus:outline-none focus:ring-1 focus:ring-[#A38A7E]"
-                    />
-                  </div>
-                )}
-
-                {/* Contact Row */}
+                {/* Email Address & Mobile / WhatsApp Number */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">Email Address *</label>
-                    <div className="flex">
-                      <select className="border border-r-0 border-gray-200 bg-[#F3F3F3] px-2 text-xs focus:outline-none">
-                        <option>+46</option>
-                        <option>+91</option>
-                        <option>+1</option>
-                      </select>
-                      <input
-                        type="email"
-                        required
-                        placeholder="Enter your email"
-                        className="w-full border border-gray-200 bg-[#FAFAFA] p-3 text-sm focus:outline-none focus:ring-1 focus:ring-[#A38A7E]"
-                      />
-                    </div>
+                    <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">
+                      Email Address *
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      placeholder="Enter your email address"
+                      className="w-full border border-gray-200 bg-[#FAFAFA] p-3 text-sm focus:outline-none focus:ring-1 focus:ring-[#A38A7E]"
+                    />
                   </div>
 
-                  {/* Dynamic Column: Mobile vs VAT */}
                   <div className="flex flex-col gap-2">
                     <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">
-                      {formType === 'private' ? 'Mobile / WhatsApp Number *' : 'VAT Number / Registration *'}
+                      Mobile / WhatsApp Number *
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      placeholder="Enter mobile or WhatsApp number"
+                      className="w-full border border-gray-200 bg-[#FAFAFA] p-3 text-sm focus:outline-none focus:ring-1 focus:ring-[#A38A7E]"
+                    />
+                  </div>
+                </div>
+
+                {/* Company / Studio & VAT Number */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="flex flex-col gap-2">
+                    <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">
+                      Company / Studio <span className="font-normal text-gray-400">(If Applicable)</span>
                     </label>
                     <input
                       type="text"
-                      required
-                      placeholder={formType === 'private' ? 'Enter your number' : 'Enter your VAT number'}
+                      placeholder="Enter company or studio name"
+                      className="w-full border border-gray-200 bg-[#FAFAFA] p-3 text-sm focus:outline-none focus:ring-1 focus:ring-[#A38A7E]"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">
+                      VAT Number <span className="font-normal text-gray-400">(If Applicable)</span>
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Enter VAT number"
                       className="w-full border border-gray-200 bg-[#FAFAFA] p-3 text-sm focus:outline-none focus:ring-1 focus:ring-[#A38A7E]"
                     />
                   </div>
                 </div>
 
-                {/* Checkbox (Typically for Private Clients) */}
-                <div className="flex items-center gap-3 py-2">
-                  <input type="checkbox" id="consult" className="w-4 h-4 accent-[#A38A7E]" />
-                  <label htmlFor="consult" className="text-sm text-gray-600 italic cursor-pointer select-none">
-                    Apply for a North Expression Trade Account.
-                  </label>
-                </div>
-
-                {/* Message Area */}
+                {/* Message */}
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">Message *</label>
+                  <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">
+                    Message *
+                  </label>
                   <textarea
                     rows={4}
                     required
@@ -184,23 +153,59 @@ const ContactUs = () => {
                   ></textarea>
                 </div>
 
-                {/* Submit Button */}
-                {/* <button type="submit" className="w-full bg-[#A38A7E] py-4 text-sm tracking-[0.2em] text-white transition-all hover:bg-[#8E7568] uppercase font-medium">
-                  Send Message
-                </button> */}
+                {/* Attach Files (Optional) */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-xs uppercase tracking-widest text-gray-500 font-bold">
+                    Attach Files <span className="font-normal text-gray-400">(Optional)</span>
+                  </label>
+                  <div className="relative border border-dashed border-gray-300 bg-[#FAFAFA] p-4 text-center hover:border-[#A38A7E] transition-colors">
+                    <input
+                      type="file"
+                      multiple
+                      onChange={handleFileChange}
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                    />
+                    <div className="flex flex-col items-center justify-center gap-2 pointer-events-none">
+                      <Upload size={20} className="text-[#A88B7E]" />
+                      <p className="text-xs text-gray-600">
+                        {selectedFiles && selectedFiles.length > 0
+                          ? `${selectedFiles.length} file(s) selected: ${Array.from(selectedFiles).map(f => f.name).join(', ')}`
+                          : "Click or drag & drop files to attach (PDF, DWG, JPG, PNG)"}
+                      </p>
+                    </div>
+                  </div>
+                </div>
 
-                <div className="flex w-full flex items-center justify-center">
-                  <a
-                    href="/contact"
-                    className="px-5 md:px-10 py-3 text-white uppercase tracking-[0.25em] text-sm md:text-md font-bold transition-all hover:brightness-110 active:scale-95 relative overflow-hidden shadow-lg"
+                {/* Checkbox: Apply for Trade Account */}
+                <div className="space-y-2 pt-2">
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="checkbox"
+                      id="tradeAccount"
+                      className="w-4 h-4 accent-[#A38A7E] cursor-pointer"
+                    />
+                    <label htmlFor="tradeAccount" className="text-sm font-medium text-gray-700 cursor-pointer select-none">
+                      Apply for a North Expression Trade Account
+                    </label>
+                  </div>
+                  <p className="text-xs text-[#6B6B6B] italic pl-7 leading-relaxed">
+                    Approved trade partners receive access to sample boxes, trade pricing, and dedicated project support. Intended for interior designers, architects, retailers, and hospitality professionals.
+                  </p>
+                </div>
+
+                {/* Send Message Button */}
+                <div className="flex w-full items-center justify-center pt-4">
+                  <button
+                    type="submit"
+                    className="w-full md:w-auto px-10 py-4 text-white uppercase tracking-[0.25em] text-sm md:text-base font-bold transition-all hover:brightness-110 active:scale-95 relative overflow-hidden shadow-lg"
                     style={{
                       backgroundColor: '#9b8b7e',
                       backgroundImage: `url("https://www.transparenttextures.com/patterns/felt.png")`,
                       backgroundBlendMode: 'multiply'
                     }}
                   >
-                    <span className="relative z-10"> Send Message →</span>
-                  </a>
+                    <span className="relative z-10">Send Message →</span>
+                  </button>
                 </div>
               </form>
             </div>

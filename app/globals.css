@@ -124,4 +124,22 @@ body {
   animation: scaleIn 0.3s ease-out;
 }
 
+/* ----------------------------------------------
+   GOOGLE TRANSLATE — hide injected widget UI
+---------------------------------------------- */
+.goog-te-banner-frame,
+iframe.skiptranslate,
+body > .skiptranslate,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.goog-tooltip,
+.goog-text-highlight {
+  display: none !important;
+}
+
+/* Google pushes the page down for its banner — cancel that offset */
+body {
+  top: 0 !important;
+}
+
 

@@ -1,1002 +1,45 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, Suspense } from 'react';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { Search, Filter, X, X as CloseIcon } from 'lucide-react';
 
-// TypeScript types for collection data
-interface CollectionItem {
-  collection: string;
-  designNo: number;
-  color: string;
-  // sizeCm: string;
-  quality: string;
-  contents: string;
-  stockRef: string;
-  madeIn: string;
-  notes: string;
-  imageSrc: string;
+import { collectionsData, CollectionItem, getQualityCategory, COLLECTION_CATEGORIES } from "../collections";
+
+const CATEGORY_SLUGS: Record<string, string> = {
+  'hand-loom': 'Hand Loom',
+  'flat-weave': 'Flat weave',
+  'hand-knotted': 'Hand Knotted',
+  'hand-tufted': 'Hand Tufted',
+};
+
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9-]/g, "")
+    .replace(/--+/g, "-");
 }
 
-// Collection data
-const collectionsData: CollectionItem[] = [
-  {
-    "collection": "Eira",
-    "designNo": 201,
-    "color": "Canary",
-    // "sizeCm": "30x30",
-    "quality": "Hand loom",
-    "contents": "80%  wool  20% Cotton",
-    "stockRef": "CL.201",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/2.jpg"
-  },
-  {
-    "collection": "Eira",
-    "designNo": 201,
-    "color": "Espresso",
-    // "sizeCm": "30x30",
-    "quality": "Hand loom",
-    "contents": "80% wool 20% Cotton",
-    "stockRef": "CL.201",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/3.jpg"
-  },
-  {
-    "collection": "Eira",
-    "designNo": 201,
-    "color": "Nordic Pine ARS 1I16",
-    // "sizeCm": "30x30",
-    "quality": "Hand loom",
-    "contents": "80% wool 20% Cotton",
-    "stockRef": "CL.201",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/4.jpg"
-  },
-  {
-    "collection": "Eira",
-    "designNo": 201,
-    "color": "Nordic Sky ARS 2m-11",
-    // "sizeCm": "30x30",
-    "quality": "Hand loom",
-    "contents": "80% Wool  20% Cotton",
-    "stockRef": "CL.201",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/5.jpg"
-  },
-  {
-    "collection": "Eira",
-    "designNo": 201,
-    "color": "Walnut",
-    // "sizeCm": "30x30",
-    "quality": "Hand loom",
-    "contents": "80% wool 20% Cotton",
-    "stockRef": "CL.201",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/6.jpg"
-  },
-  {
-    "collection": "Eira",
-    "designNo": 201,
-    "color": "Mauve",
-    // "sizeCm": "30x30",
-    "quality": "Hand Loom",
-    "contents": "80% wool ,20% Cotton",
-    "stockRef": "ID.201",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/7.jpg"
-  },
-  {
-    "collection": "Eira",
-    "designNo": 201,
-    "color": "Nordic Forest 1HI16",
-    // "sizeCm": "30x30",
-    "quality": "Hand Loom",
-    "contents": "80% wool,20%Cotton",
-    "stockRef": "ID.201",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/8.jpg"
-  },
-  {
-    "collection": "Eira",
-    "designNo": 201,
-    "color": "Sage Mist",
-    // "sizeCm": "30x30",
-    "quality": "Hand Loom",
-    "contents": "80% wool,20%Cotton",
-    "stockRef": "ID.201",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/9.jpg"
-  },
-  {
-    "collection": "Eira",
-    "designNo": 201,
-    "color": "Deep Fjord",
-    // "sizeCm": "30x30",
-    "quality": "Hand loom",
-    "contents": "80%wool,20%cotton",
-    "stockRef": "CL.201",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/10.jpg"
-  },
-  {
-    "collection": "Eira",
-    "designNo": 201,
-    "color": "Navy",
-    // "sizeCm": "30x30",
-    "quality": "Hand Loom",
-    "contents": "80% wool ,20% Cotton",
-    "stockRef": "ID.201",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/11.jpg"
-  },
-  {
-    "collection": "Astra",
-    "designNo": 210,
-    "color": "Sand 4M15/G011",
-    // "sizeCm": "30x30",
-    "quality": "Hand Loom, Loop & Cut",
-    "contents": "Wool & Tencil & 20% Cotton",
-    "stockRef": "ID.210",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/15.jpg"
-  },
-  {
-    "collection": "Astra",
-    "designNo": 210,
-    "color": "Taupe gray IB20/D106",
-    // "sizeCm": "30x30",
-    "quality": "Hand Loom, Loop & Cut",
-    "contents": "Wool & Tencil & 20% Cotton",
-    "stockRef": "ID. 210",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/16.jpg"
-  },
-  {
-    "collection": "Astra",
-    "designNo": 210,
-    "color": "Royal blue 2J17/J126",
-    // "sizeCm": "30x30",
-    "quality": "Hand Loom, Loop & Cut",
-    "contents": "Wool & Tencil & 20% Cotton",
-    "stockRef": "Id.210",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/17.jpg"
-  },
-  {
-    "collection": "Astra",
-    "designNo": 210,
-    "color": "Moss 3C06/A051",
-    // "sizeCm": "30x30",
-    "quality": "Hand Loom, Loop & Cut",
-    "contents": "Wool & Tencil & 20% Cotton",
-    "stockRef": "ID.210",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/18.jpg"
-  },
-  {
-    "collection": "Astra",
-    "designNo": 210,
-    "color": "Rust 2D01/Aoo4",
-    // "sizeCm": "30x30",
-    "quality": "Hand Loom, Loop & Cut",
-    "contents": "Wool & Tencil & 20% Cotton",
-    "stockRef": "ID.210",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/19.jpg"
-  },
-  {
-    "collection": "Astra",
-    "designNo": 210,
-    "color": "Golden brawn AH05/A114",
-    // "sizeCm": "30x30",
-    "quality": "Hand Loom, Loop & Cut",
-    "contents": "Wool & Tencil & 20% Cotton",
-    "stockRef": "ID.210",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/20.jpg"
-  },
-  {
-    "collection": "Elara",
-    "designNo": 211,
-    "color": "Snow White",
-    // "sizeCm": "30x30",
-    "quality": "Hand Loom Loop / Cut",
-    "contents": "Wool & Tencil",
-    "stockRef": "ID.211",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/21.jpg"
-  },
-  {
-    "collection": "Elara",
-    "designNo": 211,
-    "color": "spring Green",
-    // "sizeCm": "30x30 cm",
-    "quality": "Hand Loom Loop / Cut",
-    "contents": "Wool & Tencil",
-    "stockRef": "ID.211",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/22.jpg"
-  },
-  {
-    "collection": "Elara",
-    "designNo": 211,
-    "color": "Rust & silver",
-    // "sizeCm": "30x30",
-    "quality": "Hand Loom Loop / Cut",
-    "contents": "Wool & Tencil",
-    "stockRef": "ID.211",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/23.jpg"
-  },
-  {
-    "collection": "Elara",
-    "designNo": 211,
-    "color": "Sand",
-    // "sizeCm": "30x30",
-    "quality": "Hand Loom Loop / Cut",
-    "contents": "Wool & Tencil",
-    "stockRef": "ID.211",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/24.jpg"
-  },
-  {
-    "collection": "Elara",
-    "designNo": 211,
-    "color": "Espresso",
-    // "sizeCm": "30x30",
-    "quality": "Hand Loom Loop / Cut",
-    "contents": "Wool & Tencil",
-    "stockRef": "ID,211",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/25.jpg"
-  },
-  {
-    "collection": "Strata",
-    "designNo": 206,
-    "color": "White & Jute",
-    // "sizeCm": "30x30",
-    "quality": "Dual weave Loop, Cut",
-    "contents": "Jute & tensil",
-    "stockRef": "CL.206",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/26.jpg"
-  },
-  {
-    "collection": "Strata",
-    "designNo": 206,
-    "color": "Cocoa & Jute",
-    // "sizeCm": "30x30",
-    "quality": "Dual weave Loop, Cut",
-    "contents": "Jute & tensil",
-    "stockRef": "CL.206",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/27.jpg"
-  },
-  {
-    "collection": "Strata",
-    "designNo": 206,
-    "color": "Burgundy & Jute",
-    // "sizeCm": "30x30",
-    "quality": "Dual weave Loop, Cut",
-    "contents": "Jute & Tencil",
-    "stockRef": "CL.206",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/28.jpg"
-  },
-  {
-    "collection": "Strata",
-    "designNo": 206,
-    "color": "Warm Sand & Jute",
-    // "sizeCm": "30x30",
-    "quality": "Dual weave Loop, Cut",
-    "contents": "Jute & Tencil",
-    "stockRef": "CL.206",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/29.jpg"
-  },
-  {
-    "collection": "Strata",
-    "designNo": 205,
-    "color": "Rust & Jute ARS H011",
-    // "sizeCm": "30x30",
-    "quality": "Dual weave Loop, Cut",
-    "contents": "Jute & Tencil",
-    "stockRef": "CL.201",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/30.jpg"
-  },
-  {
-    "collection": "Niva",
-    "designNo": 202,
-    "color": "Oat & Linen",
-    // "sizeCm": "30x30",
-    "quality": "Hand Loom",
-    "contents": "Wool & Linen",
-    "stockRef": "JA.202",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/31.jpg"
-  },
-  {
-    "collection": "Fjord Line",
-    "designNo": 102,
-    "color": "Snow & Moss",
-    // "sizeCm": "30x30",
-    "quality": "Flatweave",
-    "contents": "100% Wool",
-    "stockRef": "JA.102",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/32.jpg"
-  },
-  {
-    "collection": "Fjord Line",
-    "designNo": 102,
-    "color": "Rust & Ivory",
-    // "sizeCm": "30x30",
-    "quality": "Flatweave",
-    "contents": "100% Wool",
-    "stockRef": "JA.103",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/33.jpg"
-  },
-  {
-    "collection": "Fjord Line",
-    "designNo": 102,
-    "color": "Cocoa &Ivory",
-    // "sizeCm": "30x30",
-    "quality": "Flatweave",
-    "contents": "100% Wool",
-    "stockRef": "JA.104",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/34.jpg"
-  },
-  {
-    "collection": "Fjord Line",
-    "designNo": 102,
-    "color": "Sun & Snow",
-    // "sizeCm": "30x33",
-    "quality": "Flatweave",
-    "contents": "100% Wool",
-    "stockRef": "JA.105",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/35.jpg"
-  },
-  {
-    "collection": "Fjord Line",
-    "designNo": 102,
-    "color": "Ink & Snow",
-    // "sizeCm": "30x30",
-    "quality": "Flatweave",
-    "contents": "100% Wool",
-    "stockRef": "",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/36.jpg"
-  },
-  {
-    "collection": "Dota",
-    "designNo": 104,
-    "color": "Sand & Ivory",
-    // "sizeCm": "30x30",
-    "quality": "Flatweave",
-    "contents": "100% Wool & 20% Cotton",
-    "stockRef": "CL.104",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/37.jpg"
-  },
-  {
-    "collection": "Dota",
-    "designNo": 104,
-    "color": "Rose & Ivory",
-    // "sizeCm": "30x30",
-    "quality": "Flatweave",
-    "contents": "100% Wool & 20% Cotton",
-    "stockRef": "CL.104",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/38.jpg"
-  },
-  {
-    "collection": "Dota",
-    "designNo": 104,
-    "color": "Sage & Ivory",
-    // "sizeCm": "30x30",
-    "quality": "Flatweave",
-    "contents": "100% Wool & 20% Cotton",
-    "stockRef": "CL.104",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/39.jpg"
-  },
-  {
-    "collection": "Dota",
-    "designNo": 104,
-    "color": "Walnut & Ivory",
-    // "sizeCm": "30x30",
-    "quality": "Flatweave",
-    "contents": "100% Wool & 20% Cotton",
-    "stockRef": "s",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/40.jpg"
-  },
-  {
-    "collection": "Dota",
-    "designNo": 104,
-    "color": "Rose",
-    // "sizeCm": "30x30",
-    "quality": "Flat weave",
-    "contents": "80% wool , 20% Cotton",
-    "stockRef": "CL.104",
-    "madeIn": "",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/41.jpg"
-  },
-  {
-    "collection": "Nordic outdoor",
-    "designNo": 111,
-    "color": "Walnut",
-    // "sizeCm": "30x30 cm",
-    "quality": "Flatweave",
-    "contents": "100% Recycled Pet yarn",
-    "stockRef": "MC.111",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/42.jpg"
-  },
-  {
-    "collection": "Nordic outdoor",
-    "designNo": 111,
-    "color": "Pearl White",
-    // "sizeCm": "30x30 cm",
-    "quality": "Flatweave",
-    "contents": "100% Recycled Pet yarn",
-    "stockRef": "MC.111",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/43.jpg"
-  },
-  {
-    "collection": "Nordic outdoor",
-    "designNo": 111,
-    "color": "Sage",
-    // "sizeCm": "30x30 cm",
-    "quality": "Flatweave",
-    "contents": "100% Recycled Pet yarn",
-    "stockRef": "MC.111",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/44.jpg"
-  },
-  {
-    "collection": "Luma,optiona fringes",
-    "designNo": 101,
-    "color": "Rust red",
-    // "sizeCm": "30x30",
-    "quality": "Flatweave",
-    "contents": "80% Wool & 20% Cotton",
-    "stockRef": "CL.101",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/45.jpg"
-  },
-  {
-    "collection": "Luma optional fringes",
-    "designNo": 101,
-    "color": "Terracotta",
-    // "sizeCm": "30x30",
-    "quality": "Flatweave",
-    "contents": "80% Wool & 20% Cotton",
-    "stockRef": "CL.101",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/46.jpg"
-  },
-  {
-    "collection": "Luma,optional fringes",
-    "designNo": 101,
-    "color": "Warm ivory",
-    // "sizeCm": "30x30",
-    "quality": "Flatweave",
-    "contents": "80% Wool & 20% Cotton",
-    "stockRef": "CL.101",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/47.jpg"
-  },
-  {
-    "collection": "? Ny bild skall tas Astra",
-    "designNo": 210,
-    "color": "Golden brawn AH05/A114",
-    // "sizeCm": "30x30",
-    "quality": "Hand Loom, Loop & Cut",
-    "contents": "Wool & Tencil & 20% Cotton",
-    "stockRef": "ID. 210",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/20.jpg"// collections color match - 20 number collection
-  },
-  {
-    "collection": "Elara",
-    "designNo": 211,
-    "color": "Snow White",
-    // "sizeCm": "30x30",
-    "quality": "Hand Loom Loop / Cut",
-    "contents": "Wool & Tencil",
-    "stockRef": "ID.211",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/21.jpg"
-  },
-  {
-    "collection": "Elara",
-    "designNo": 211,
-    "color": "Spring green",
-    // "sizeCm": "30c30",
-    "quality": "Hand Loom Loop / Cut",
-    "contents": "Wool & Tencil",
-    "stockRef": "ID.211",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/22.jpg"
-  },
-  {
-    "collection": "Elara",
-    "designNo": 211,
-    "color": "Ocean Bllue",
-    // "sizeCm": "30x30",
-    "quality": "Hand Loom Loop / Cut",
-    "contents": "Wool & Tencil",
-    "stockRef": "ID.211",
-    "madeIn": "Indian",
-    "notes": "No picture",
-    "imageSrc": "/collection/All_New_Collection_img/51.jpg"
-  },
-  {
-    "collection": "Elara",
-    "designNo": 211,
-    "color": "Blue",
-    // "sizeCm": "30x30",
-    "quality": "Hand Loom Loop / Cut",
-    "contents": "Wool & Tensil",
-    "stockRef": "",
-    "madeIn": "",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/53.jpg"
-  },
-  {
-    "collection": "Moonstone",
-    "designNo": 203,
-    "color": "Pearl & Mocha",
-    // "sizeCm": "30x30",
-    "quality": "Hand Loom over tufted",
-    "contents": "Wool & Tencil",
-    "stockRef": "KE. 203",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/52.jpg"
-  },
-  {
-    "collection": "Root",
-    "designNo": 301,
-    "color": "Kamel",
-    // "sizeCm": "30x30",
-    "quality": "Nepal 60 knots",
-    "contents": "100% Jute",
-    "stockRef": "301",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/54.jpg"
-  },
-  {
-    "collection": "Root",
-    "designNo": 301,
-    "color": "Mocha & Latte",
-    // "sizeCm": "30x30",
-    "quality": "Nepal 60 knots",
-    "contents": "100% Jut",
-    "stockRef": "AN. 301",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/55.jpg"
-  },
-  {
-    "collection": "Root",
-    "designNo": 301,
-    "color": "Oat",
-    // "sizeCm": "30x30",
-    "quality": "Nepal 60 knots",
-    "contents": "100% Jute",
-    "stockRef": "AN. 301",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/56.jpg"
-  },
-  {
-    "collection": "Root",
-    "designNo": 301,
-    "color": "Charcoal & Ivory",
-    // "sizeCm": "30x30",
-    "quality": "Nepal 60 knots",
-    "contents": "100% Jute",
-    "stockRef": "AN. 301",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/57.jpg"
-  },
-  {
-    "collection": "Root",
-    "designNo": 301,
-    "color": "Sand & ceries",
-    // "sizeCm": "30x30",
-    "quality": "Nepal 60 knots",
-    "contents": "100% Jute",
-    "stockRef": "AN. 301",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/58.jpg"
-  },
-  {
-    "collection": "Root",
-    "designNo": 301,
-    "color": "Wine  & Walnut",
-    // "sizeCm": "30x30",
-    "quality": "Nepal 60 knots",
-    "contents": "100% Jute",
-    "stockRef": "AN. 301",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/59.jpg"
-  },
-  {
-    "collection": "Root",
-    "designNo": 301,
-    "color": "Greige",
-    // "sizeCm": "30x30",
-    "quality": "Nepal 60 knots",
-    "contents": "100% Jute",
-    "stockRef": "AN. 301",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/60.jpg"
-  },
-  {
-    "collection": "Root",
-    "designNo": 301,
-    "color": "Gloden Flax",
-    // "sizeCm": "30x30",
-    "quality": "Nepal 60 knots",
-    "contents": "100% Jute",
-    "stockRef": "AN. 301",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/61.jpg"
-  },
-  {
-    "collection": "Terra optional Fringes",
-    "designNo": 103,
-    "color": "Snow",
-    // "sizeCm": "30x30",
-    "quality": "Flatweave",
-    "contents": "Jute",
-    "stockRef": "MC.103",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/62.jpg"
-  },
-  {
-    "collection": "Terra optional Fringes",
-    "designNo": 103,
-    "color": "Jute & Ivory",
-    // "sizeCm": "30x30",
-    "quality": "Flatweave",
-    "contents": "Jute",
-    "stockRef": "MC.103",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/63.jpg"
-  },
-  {
-    "collection": "Terra optinal Fringes",
-    "designNo": 103,
-    "color": "Ocean Blue",
-    // "sizeCm": "30x30",
-    "quality": "Flatweave",
-    "contents": "Jute",
-    "stockRef": "MC.103",
-    "madeIn": "Indian",
-    "notes": "new picture",
-    "imageSrc": "/collection/All_New_Collection_img/64.jpg"
-  },
-  {
-    "collection": "Terra optional Fringes",
-    "designNo": 103,
-    "color": "Marine",
-    // "sizeCm": "30x30",
-    "quality": "Flatweave",
-    "contents": "Jute",
-    "stockRef": "MC.103",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/65.jpg"
-  },
-  {
-    "collection": "Terra optional Fringes",
-    "designNo": 103,
-    "color": "Waknut & Olive",
-    // "sizeCm": "30x30",
-    "quality": "Flat weave",
-    "contents": "Jute",
-    "stockRef": "MC.310",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/66.jpg"
-  },
-  {
-    "collection": "Grid",
-    "designNo": 401,
-    "color": "Black, Ivory & Gold dust",
-    // "sizeCm": "30x30",
-    "quality": "Hand Tufted",
-    "contents": "Wool & Cotton",
-    "stockRef": "KE.401",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/67.jpg"
-  },
-  {
-    "collection": "Grid",
-    "designNo": 401,
-    "color": "Champagne & Golden dust",
-    // "sizeCm": "30x30",
-    "quality": "Hand Tufted",
-    "contents": "Wool & Cotton",
-    "stockRef": "KE.401",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/68.jpg"
-  },
-  {
-    "collection": "Alda",
-    "designNo": 205,
-    "color": "Chacoal",
-    // "sizeCm": "25x60",
-    "quality": "Hand Loom",
-    "contents": "80% Wool  20% Cotton",
-    "stockRef": "ID.205",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/69.jpg"
-  },
-  {
-    "collection": "Alda",
-    "designNo": 205,
-    "color": "Ocean",
-    // "sizeCm": "25x60",
-    "quality": "Hand Loom",
-    "contents": "80% Wool  20% Cotton",
-    "stockRef": "ID.205",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/70.jpg"
-  },
-  {
-    "collection": "Alda",
-    "designNo": 205,
-    "color": "Forest Mist",
-    // "sizeCm": "25x60",
-    "quality": "Hand Loom",
-    "contents": "80% Wool 20% Cotton",
-    "stockRef": "ID.205",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/71.jpg"
-  },
-  {
-    "collection": "Alda",
-    "designNo": 205,
-    "color": "Peach",
-    // "sizeCm": "25x60",
-    "quality": "Hand Loom",
-    "contents": "80% Wool 20% Cotton",
-    "stockRef": "ID.205",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/72.jpg"
-  },
-  {
-    "collection": "Alda",
-    "designNo": 205,
-    "color": "Taupe",
-    // "sizeCm": "25x60",
-    "quality": "Hand Loom",
-    "contents": "80% Wool 20% Cotton",
-    "stockRef": "ID.205",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/73.jpg"
-  },
-  {
-    "collection": "Alda",
-    "designNo": 205,
-    "color": "Pistachio",
-    // "sizeCm": "25x60",
-    "quality": "Hand Loom",
-    "contents": "80% Wool 20% Cotton",
-    "stockRef": "ID.205",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/74.jpg"
-  },
-  {
-    "collection": "Alda",
-    "designNo": 205,
-    "color": "Ash Fade",
-    // "sizeCm": "25x60",
-    "quality": "Hand Loom",
-    "contents": "80% Wool 20% Cotton",
-    "stockRef": "ID.205",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/75.jpg"
-  },
-  {
-    "collection": "Structure",
-    "designNo": 303,
-    "color": "Dusty sage",
-    // "sizeCm": "30x30",
-    "quality": "Nepal 60 Knots",
-    "contents": "80%Wool20%Cotton",
-    "stockRef": "KE.303",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/76.jpg"
-  },
-  {
-    "collection": "Solen",
-    "designNo": 305,
-    "color": "Walnut & Oat",
-    // "sizeCm": "30x30",
-    "quality": "Nepal 80 Knotes",
-    "contents": "80%Wool20%Cotton",
-    "stockRef": "KE.305",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/77.jpg"
-  },
-  {
-    "collection": "Embla",
-    "designNo": 301,
-    "color": "Mocha & Oat",
-    // "sizeCm": "30x30",
-    "quality": "Nepal 100 Knotes",
-    "contents": "80%Wool20%Cotton",
-    "stockRef": "KE.301",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/78.jpg"
-  },
-  {
-    "collection": "Meadow",
-    "designNo": 106,
-    "color": "Multicolor",
-    // "sizeCm": "60x60",
-    "quality": "Flat weave",
-    "contents": "80%Wool20%Linen",
-    "stockRef": "JA.106",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/79.jpg"
-  },
-  {
-    "collection": "Meadow",
-    "designNo": 106,
-    "color": "Multicolor",
-    // "sizeCm": "60x60",
-    "quality": "Flat weave",
-    "contents": "80%Wool20%Linen",
-    "stockRef": "Ja.106",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/80.jpg"
-  },
-  {
-    "collection": "Eld",
-    "designNo": 107,
-    "color": "Multicolor",
-    // "sizeCm": "60x60",
-    "quality": "Flat weave",
-    "contents": "80%Wool20%Linen",
-    "stockRef": "ID.107",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/81.jpg"
-  },
-  {
-    "collection": "Shadow",
-    "designNo": 108,
-    "color": "Graphite fade",
-    // "sizeCm": "30x60",
-    "quality": "Flat weave",
-    "contents": "Wool",
-    "stockRef": "MC.108",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/82.jpg"
-  },
-  {
-    "collection": "Field",
-    "designNo": 212,
-    "color": "NordicPine",
-    // "sizeCm": "60x90",
-    "quality": "Hand Loom",
-    "contents": "80%Wool20%Cotton",
-    "stockRef": "ID.212",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/83.jpg"
-  },
-  {
-    "collection": "Facet",
-    "designNo": 109,
-    "color": "Sage",
-    // "sizeCm": "30x30",
-    "quality": "Flat weave",
-    "contents": "80%Wool20%Cotton",
-    "stockRef": "RA109",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/84.jpg"
-  },
-  {
-    "collection": "Horizon",
-    "designNo": 110,
-    "color": "Deep Ocean & Ivory",
-    // "sizeCm": "30x60",
-    "quality": "Flat weave",
-    "contents": "80%Wool20%Cotton",
-    "stockRef": "CL.110",
-    "madeIn": "Indian",
-    "notes": "",
-    "imageSrc": "/collection/All_New_Collection_img/85.jpg"
-  }
-];
+function buildCollectionSlug(item: CollectionItem): string {
+  return slugify(`${item.collection}-${item.color}`);
+}
 
-export default function CollectionsListPage() {
+function CollectionsListContent() {
+  const searchParams = useSearchParams();
+  const categoryFromUrl = CATEGORY_SLUGS[searchParams.get('category') ?? ''] ?? 'All';
+
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string>(categoryFromUrl);
   const [selectedCollection, setSelectedCollection] = useState<string>('All');
   const [selectedQuality, setSelectedQuality] = useState<string>('All');
+
+  // Keep the category filter in sync when the URL param changes
+  useEffect(() => {
+    setSelectedCategory(categoryFromUrl);
+  }, [categoryFromUrl]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<CollectionItem | null>(null);
   const [formData, setFormData] = useState({
@@ -1022,7 +65,7 @@ export default function CollectionsListPage() {
   // Filter collections based on search and filters
   const filteredCollections = useMemo(() => {
     return collectionsData.filter(item => {
-      const matchesSearch = searchQuery === '' || 
+      const matchesSearch = searchQuery === '' ||
         item.collection.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.color.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.quality.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -1030,13 +73,15 @@ export default function CollectionsListPage() {
 
       const matchesCollection = selectedCollection === 'All' || item.collection === selectedCollection;
       const matchesQuality = selectedQuality === 'All' || item.quality === selectedQuality;
+      const matchesCategory = selectedCategory === 'All' || getQualityCategory(item.quality) === selectedCategory;
 
-      return matchesSearch && matchesCollection && matchesQuality;
+      return matchesSearch && matchesCollection && matchesQuality && matchesCategory;
     });
-  }, [searchQuery, selectedCollection, selectedQuality]);
+  }, [searchQuery, selectedCollection, selectedQuality, selectedCategory]);
 
   const clearFilters = () => {
     setSearchQuery('');
+    setSelectedCategory('All');
     setSelectedCollection('All');
     setSelectedQuality('All');
   };
@@ -1063,13 +108,13 @@ export default function CollectionsListPage() {
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1500));
-    
+
     setIsSubmitting(false);
     setSubmitSuccess(true);
-    
+
     // Reset form after showing success
     setTimeout(() => {
       closeQuoteModal();
@@ -1103,6 +148,22 @@ export default function CollectionsListPage() {
       {/* Search and Filter Section */}
       <section className="max-w-7xl mx-auto px-6 py-8">
         <div className="bg-white/40 border border-black/5 p-6 rounded-lg shadow-sm">
+          {/* Category Pills */}
+          <div className="flex flex-wrap gap-2 mb-5">
+            {['All', ...COLLECTION_CATEGORIES].map((category) => (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={`px-4 py-2 text-xs font-semibold uppercase tracking-[0.15em] border transition-colors ${selectedCategory === category
+                  ? 'bg-[#20292c] text-white border-[#20292c]'
+                  : 'bg-white/60 text-gray-700 border-black/10 hover:border-[#9b8b7e] hover:text-[#9b8b7e]'
+                  }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+
           <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center">
             {/* Search Input */}
             <div className="flex-1 w-full relative">
@@ -1174,11 +235,11 @@ export default function CollectionsListPage() {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-20">
             {filteredCollections.map((item, index) => (
-              <CollectionCard 
-                key={`${item.collection}-${item.designNo}-${item.color}-${index}`} 
-                item={item} 
+              <CollectionCard
+                key={`${item.collection}-${item.designNo}-${item.color}-${index}`}
+                item={item}
                 onRequestQuote={openQuoteModal}
               />
             ))}
@@ -1301,88 +362,52 @@ export default function CollectionsListPage() {
   );
 }
 
+export default function CollectionsListPage() {
+  return (
+    <Suspense fallback={null}>
+      <CollectionsListContent />
+    </Suspense>
+  );
+}
+
 // Collection Card Component
 function CollectionCard({ item, onRequestQuote }: { item: CollectionItem; onRequestQuote: (item: CollectionItem) => void }) {
+  const slug = buildCollectionSlug(item);
+
   return (
-    <div className="bg-white/40 border border-black/5 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 group">
-      {/* Image Placeholder */}
-      <div className="aspect-square bg-gradient-to-br from-stone-200 to-stone-300 flex items-center justify-center">
-        {item.imageSrc ? (
-          <img src={item.imageSrc} alt={item.color} className="w-full h-full object-cover" />
-        ) : (
-          <div className="text-center p-4">
-            <div className="w-16 h-16 mx-auto mb-2 bg-[#9b8b7e]/20 rounded-full flex items-center justify-center">
-              <span className="text-2xl">🧶</span>
+    <div className=" overflow-hidden ">
+      <Link href={`/collection/collections_list/${slug}`} className="block">
+        {/* Image Placeholder */}
+        <div className="aspect-square flex items-center justify-center">
+          {item.imageSrc ? (
+            <img src={item.imageSrc} alt={item.color} className="w-full h-full object-cover" />
+          ) : (
+            <div className="text-center p-4">
+              <div className="w-16 h-16 mx-auto mb-2 bg-[#9b8b7e]/20 rounded-full flex items-center justify-center">
+                <span className="text-2xl">🧶</span>
+              </div>
+              <p className="text-xs text-gray-500 italic">Image coming soon</p>
             </div>
-            <p className="text-xs text-gray-500 italic">Image coming soon</p>
+          )}
+        </div>
+
+
+        <div className="p-4 pb-2 space-y-3">
+
+          <div>
+            <h3 className="font-serif text-xl text-[#0e0e0e] font-medium">{item.collection}</h3>
           </div>
-        )}
-      </div>
-      
 
-      {/* Card Content */}
-      <div className="p-4 space-y-3">
-
-        {/* Collection Name */}
-        <div>
-          <h3 className="font-serif text-xl text-[#0e0e0e] font-medium">{item.collection}</h3>
-          <p className="text-xs text-gray-500 mt-1">Design No: {item.designNo}</p>
-        </div>
-
-        {/* Color */}
-        <div className="flex items-start gap-2">
-          <span className="text-xs font-semibold text-gray-600 uppercase tracking-wider w-16 shrink-0">Color:</span>
-          <span className="text-sm text-gray-800">{item.color}</span>
-        </div>
-
-        {/* Size */}
-        {/* <div className="flex items-start gap-2">
-          <span className="text-xs font-semibold text-gray-600 uppercase tracking-wider w-16 shrink-0">Size:</span>
-          <span className="text-sm text-gray-800">{item.sizeCm}</span>
-        </div> */}
-
-        {/* Quality */}
-        <div className="flex items-start gap-2">
-          <span className="text-xs font-semibold text-gray-600 uppercase tracking-wider w-16 shrink-0">Quality:</span>
-          <span className="text-sm text-gray-800">{item.quality}</span>
-        </div>
-
-        {/* Contents */}
-        <div className="flex items-start gap-2">
-          <span className="text-xs font-semibold text-gray-600 uppercase tracking-wider w-16 shrink-0">Material:</span>
-          <span className="text-sm text-gray-800">{item.contents}</span>
-        </div>
-
-        {/* Stock Reference */}
-        {item.stockRef && (
           <div className="flex items-start gap-2">
-            <span className="text-xs font-semibold text-gray-600 uppercase tracking-wider w-16 shrink-0">Stock Ref:</span>
-            <span className="text-sm text-gray-800">{item.stockRef}</span>
+            {/* <span className="text-sm text-gray-800">{item.color} , </span> */}
+            <span className="text-sm text-gray-800">{item.quality}</span>
           </div>
-        )}
 
-        {/* Made In */}
-        {item.madeIn && (
-          <div className="flex items-start gap-2">
-            <span className="text-xs font-semibold text-gray-600 uppercase tracking-wider w-16 shrink-0">Origin:</span>
-            <span className="text-sm text-gray-800">{item.madeIn}</span>
-          </div>
-        )}
 
-        <button 
-          onClick={() => onRequestQuote(item)}
-          className="w-full px-4 py-2 bg-[#9b8b7e] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#8b7b6e] transition-colors"
-        >
-          Request a Quote
-        </button>
+        </div>
+      </Link>
 
-        {/* Notes */}
-        {item.notes && (
-          <div className="pt-2 border-t border-black/5">
-            <p className="text-xs text-[#9b8b7e] italic">{item.notes}</p>
-          </div>
-        )}
-      </div>
+
     </div>
   );
 }

@@ -177,7 +177,7 @@ export default function page() {
             className="font-serif font-light text-[clamp(40px,4vw,88px)] text-[#2D2D2D] leading-[1.05] tracking-[-0.01em] mb-6 italic"
           >
             Get In {" "}
-            <em className="italic text-[#5d4037]">Touch</em>
+            <em className="italic text-[#2D2D2D]">Touch</em>
           </h1>
 
           <p
@@ -187,9 +187,9 @@ export default function page() {
           </p>
 
           {/* SMALL GRADIENT DIVIDER LINE */}
-          <div
+          {/* <div
             className="w-[1px] h-14 mt-9 mx-auto bg-gradient-to-b from-[#5d4037] to-transparent"
-          />
+          /> */}
         </div>
       </header>
 

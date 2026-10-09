@@ -52,7 +52,7 @@ const FAQ_Black_Theme: React.FC = () => {
         {/* Header */}
         <div className="text-center mb-20 text-[#2D2D2D]">
           <h2 className="mb-6 text-2xl md:text-5xl font-serif ">
-            Frequently Asked <span className="text-[#5d4037]">Questions</span>
+            Frequently Asked <span className="text-[#2D2D2D]">Questions</span>
           </h2>
           <p className="text-[#4a4a4a] text-lg font-serif italic max-w-2xl mx-auto">
             Everything you need to know about our craftsmanship, process, and bespoke services.
@@ -64,7 +64,7 @@ const FAQ_Black_Theme: React.FC = () => {
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="border border-[#eaddd7]  w-full rounded-3xl overflow-hidden bg-[#f9f5f2] shadow-sm transition-all duration-300 hover:shadow-md"
+              className="border border-[#eaddd7]  w-full rounded-3xl overflow-hidden bg-white shadow-sm transition-all duration-300 hover:shadow-md"
             >
               <button
                 onClick={() =>

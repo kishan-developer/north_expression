@@ -1,69 +1,52 @@
 "use client";
 
+import Link from "next/link";
+
 export default function AuroraSection() {
   return (
-    <section className="relative w-full flex text-center flex-col text-foreground py-5 md:py-20 px-0 md:px-16 bg-background">
-
-      {/* Heading */}
-      <h2 className="text-3xl md:text-5xl font-semibold mb-6 font-serif text-[#2D2D2D] italic">
-        Custom Rugs
-      </h2>
-
-      <p className="text-[#6B6B6B] max-w-2xl mx-auto mb-5 md:mb-16 text-lg font-body">
-       Rooted in material honesty and structural clarity. A balance between Nordic restraint and traditional craftsmanship.
-      </p>
-
-      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center text-start">
-
-        {/* LEFT IMAGES */}
-        <div className="relative group">
-          {/* Large Image */}
-          <img
-            src="/visual/p6.jpeg"
-            alt="Luxury Villa"
-            className="rounded-2xl w-full h-[300px] md:h-[480px] object-cover shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]"
-          />
-        </div>
-
-        {/* RIGHT CONTENT */}
-        <div className="relative bg-[#f9f5f2] border border-[#eaddd7] rounded-2xl p-4 md:p-6 shadow-sm">
-
-          <h2 className="font-serif text-4xl md:text-5xl mb-8 text-[#2D2D2D] italic">
-            Custom Rugs
-          </h2>
-
-          <ul className="space-y-4 text-md md:text-lg leading-relaxed font-body text-[#6B6B6B]">
-            <li><span className="text-[#5d4037] mr-2">•</span> Rugs crafted exactly to your required size and shape.</li>
-            <li><span className="text-[#5d4037] mr-2">•</span> Choose patterns, colors, and styles to match your space.</li>
-            <li><span className="text-[#5d4037] mr-2">•</span> Options like wool, silk, cotton, jute, or blended fibers.</li>
-            <li><span className="text-[#5d4037] mr-2">•</span> Expert artisans ensure durability and fine detailing.</li>
-            <li><span className="text-[#5d4037] mr-2">•</span> Ideal for homes, offices, hotels, and luxury projects.</li>
-          </ul>
-
-          <div className="flex flex-wrap gap-4 mt-10">
-            <a href="/custome_rugs" className="inline-flex items-center gap-2 border border-[#5d4037] px-8 py-3 text-sm font-medium tracking-wide text-[#5d4037] transition-all duration-300">
-              Read More
-              <span className="text-lg">→</span>
-            </a>
-            {/* 
-            <a href="/selected_projects" className="inline-flex items-center gap-2 bg-[#5d4037] px-8 py-3 rounded-full text-sm font-medium tracking-wide text-white hover:bg-[#3e2723] transition-all duration-300 shadow-md">
-              Explore Projects
-              <span className="text-lg">→</span>
-            </a> */}
-
-            <a
-              href="/selected_projects"
-              className="px-3 md:px-10 py-4 text-white uppercase tracking-[0.25em] text-sm font-bold transition-all hover:brightness-110 active:scale-95 relative overflow-hidden shadow-lg"
+    <section className="relative w-full min-h-[60vh] md:min-h-[90vh] bg-[#F2EEE7] py-16 md:py-24 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 md:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          {/* Left Column - Content */}
+          <div className="order-2 lg:order-1">
+            <span className="inline-block text-xs md:text-sm font-bold uppercase tracking-[0.3em] text-[#9b8b7e] mb-4">
+              Custom Rugs
+            </span>
+            
+            <h2 className="font-serif text-2xl md:text-4xl lg:text-5xl  text-[#2D2D2D] leading-[1.1] mb-6">
+              Bespoke rugs, created for distinctive interiors.
+            </h2>
+            
+            <h3 className="font-serif text-xl md:text-2xl font-medium text-[#5d4037] mb-6">
+              Designed for Your Space
+            </h3>
+            
+            <p className="text-base md:text-lg text-[#6B6B6B] leading-relaxed mb-8 max-w-xl">
+              Bespoke rugs created in your required size, shape, colour and material. Each rug is developed for residential, hospitality and commercial interiors, combining design flexibility with skilled craftsmanship.
+            </p>
+            
+            <Link
+              href="/custome_rugs"
+              className="inline-flex items-center gap-2 bg-[#9b8b7e] text-white px-8 py-4 text-sm md:text-base font-medium uppercase tracking-[0.2em] transition-all hover:bg-[#8a7a6d] hover:shadow-lg relative overflow-hidden"
               style={{
-                backgroundColor: '#9b8b7e',
                 backgroundImage: `url("https://www.transparenttextures.com/patterns/felt.png")`,
                 backgroundBlendMode: 'multiply'
               }}
             >
-              <span className="relative z-10">Explore Projects →</span>
-            </a>
+              <span className="relative z-10">Explore Custom Rugs →</span>
+            </Link>
+          </div>
 
-
+          {/* Right Column - Abstract Graphic */}
+          <div className="order-1 lg:order-2 relative h-[400px] md:h-[500px] lg:h-[600px]">
+            {/* Abstract shapes */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              {/* Background base shape */}
+             <img src="/Custom_rug.png" alt="Aurora" className="w-full h-full object-cover" />
+                
+              
+            
+            </div>
           </div>
         </div>
       </div>

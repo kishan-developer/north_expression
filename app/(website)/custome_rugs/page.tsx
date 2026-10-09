@@ -1,5 +1,5 @@
 // components/RugLandingPage.tsx
-import { Dot } from 'lucide-react';
+import { Dot, Pencil, Leaf, Layers, Settings } from 'lucide-react';
 import React from 'react';
 
 const Page = () => {
@@ -35,7 +35,7 @@ const Page = () => {
                         className="font-serif font-light text-[clamp(40px,4vw,88px)] text-[#2D2D2D] leading-[1.05] tracking-[-0.01em] mb-6 italic"
                     >
                         Custome {" "}
-                        <em className="italic text-[#5d4037]">Rug Design</em>
+                        <em className="italic text-[#2D2D2D]">Rug Design</em>
                     </h1>
 
                     {/* <h2 className='text-2xl mb-2'>Architectural Rugs Defined by Material & Structure</h2> */}
@@ -47,9 +47,9 @@ const Page = () => {
                     </p>
 
                     {/* SMALL GRADIENT DIVIDER LINE */}
-                    <div
+                    {/* <div
                         className="w-[1px] h-14 mt-9 mx-auto bg-gradient-to-b from-[#5d4037] to-transparent"
-                    />
+                    /> */}
                 </div>
             </header>
 
@@ -93,7 +93,7 @@ const Page = () => {
                             <img src="/custome_rugs/design/2.png" alt="Custom Rug 2" className='w-full h-full' />
                         </div>
                         <div className="aspect-[4/4] bg-black/5 flex items-center justify-center italic text-xs text-gray-400 border border-black/5">
-                            <img src="/custome_rugs/design/3.png" alt="Custom Rug 3" className='w-full h-full' />
+                            <img src="/Design_Sheets_Preview.png" alt="Custom Rug 3" className='w-full h-full' />
                         </div>
                     </div>
                 </section>
@@ -120,77 +120,72 @@ const Page = () => {
                             </button>
                         </div>
                         <div className="flex-1 w-full bg-black/5 aspect-video border border-black/5 flex items-center justify-center italic text-gray-400">
-                            <img src="/custome_rugs/design/4.png" alt="Hospitality Project" className='w-full h-full' />
+                            <img src="/Hospitality_Interior.png" alt="Hospitality Project" className='w-full h-full' />
                         </div>
                     </div>
                 </section>
 
                 {/* --- COLLABORATION SECTION --- */}
-                <section className="py-5 md:py-20">
-                    <div className="flex flex-col lg:flex-row-reverse gap-16 items-center">
-                        <div className="flex-1 space-y-2 md:space-y-6 text-start px-4 md:px-2 md:text-center lg:text-left">
-                            <h3 className="text-2xl md:text-3xl font-serif font-light">Designer & Trade Collaboration</h3>
-                            <p className="italic text-gray-500 text-lg">Your ideas, our craftsmanship.</p>
-                            <div className="inline-block text-left text-lg">
-                                <ul className="space-y-4 text-gray-600">
-                                    <li>• Trade pricing & priority timelines</li>
-                                    <li>• Prototypes & strike-offs</li>
-                                    <li>• Private label or co-branding</li>
-                                </ul>
+                <section className="bg-[#F2EEE7] py-16 md:py-24">
+                    <div className="max-w-7xl mx-auto px-4 md:px-8">
+                        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
+                            {/* Left Column - Image */}
+                            <div className="w-full lg:w-1/2">
+                                <div className="w-full aspect-[4/3] bg-black/5 border border-black/5 flex items-center justify-center">
+                                    <img
+                                        src="/Brown_Gradient_Rug.png"
+                                        alt="Designer Collaboration"
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
                             </div>
-                        </div>
-                        <div className="flex-1 w-full bg-black/5 aspect-[4/3] border border-black/5 flex items-center justify-center italic text-gray-400">
-                            <img src="/custome_rugs/design/5.png" alt="Designer Collaboration" className='w-full h-full' />
+
+                            {/* Right Column - Content */}
+                            <div className="w-full lg:w-1/2 text-left">
+                                <h3 className="text-2xl md:text-3xl font-serif font-light text-[#2D2D2D] mb-2">
+                                    Designer & Trade Collaboration
+                                </h3>
+                                <p className="italic text-gray-500 text-lg mb-8">
+                                    Your ideas, our craftsmanship.
+                                </p>
+
+                                <ul className="space-y-4 text-lg text-gray-600 mb-8">
+                                    <li className="flex items-start gap-3">
+                                        <span className="w-1.5 h-1.5 bg-[#9b8b7e] rounded-full mt-2 flex-shrink-0" />
+                                        <span>Professional project support</span>
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <span className="w-1.5 h-1.5 bg-[#9b8b7e] rounded-full mt-2 flex-shrink-0" />
+                                        <span>Prototypes and strike-offs</span>
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <span className="w-1.5 h-1.5 bg-[#9b8b7e] rounded-full mt-2 flex-shrink-0" />
+                                        <span>Custom colours, sizes and materials</span>
+                                    </li>
+                                </ul>
+
+                                <p className="text-base md:text-lg text-[#6B6B6B] mb-8 leading-relaxed">
+                                    A design can be adapted to the room, the intended use and the required construction. The finished rug may be rectangular, circular, organic or completely bespoke.
+                                </p>
+
+                                <button
+                                    className="inline-flex items-center gap-2 bg-[#2D2D2D] text-white px-8 py-4 text-sm md:text-base font-medium uppercase tracking-[0.2em] transition-all hover:bg-[#3d3d3d] hover:shadow-lg"
+                                >
+                                    <span>START YOUR CUSTOM RUG PROJECT</span>
+                                    <span className="text-lg">→</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </section>
             </main>
 
-            {/* --- WHY PROFESSIONALS SECTION (Full Width) --- */}
-            <section className="bg-[#e8e0db] py-5 md:py-24 text-start px-0 md:px-0 md:text-center border-y border-black/5">
-                <h3 className="text-2xl md:text-3xl font-serif font-light mb-12 px-4">Why Professionals Choose North Expression</h3>
-                <div className='w-full flex px-4 items-center justify-center'>
-                    <ul className="flex flex-col w-full md:w-[30%] list-style-disc text-start flex-wrap justify-start gap-x-12 gap-y-6 mb-12 text-lg text-gray-600 font-medium px-0">
-                        <li className='flex'> <Dot /> Scandinavian design DNA</li>
 
-                        <li className='flex'> <Dot /> Flexible production – No MOQs</li>
-
-                        <li className='flex'> <Dot /> Sustainable materials</li>
-
-                        <li className='flex'> <Dot /> Hospitality-grade durability</li>
-                    </ul>
-                </div>
-                <div className="flex flex-col sm:flex-row justify-center gap-4 px-2 md:px-6">
-                    <a
-                        href="/custome_rugs_inquiry"
-                        className="relative w-fit px-2 md:px-10 py-4 text-white uppercase tracking-[0.2em] text-sm font-medium overflow-hidden transition-all hover:brightness-105 active:scale-[0.99]"
-                        style={{
-                            backgroundColor: '#9b8b7e',
-                            backgroundImage: `url("https://www.transparenttextures.com/patterns/felt.png")`, // Adds the subtle fabric grain
-                            backgroundBlendMode: 'multiply'
-                        }}
-                    >
-                        <span className="relative z-10">Request Your Custom Rug</span>
-                    </a>
-
-
-                    <button
-                        className="relative w-fit px-2 md:px-10 py-4 text-white uppercase tracking-[0.2em] text-[13px] md:text-sm font-medium overflow-hidden transition-all hover:brightness-105 active:scale-[0.99]"
-                        style={{
-                            backgroundColor: '#9b8b7e',
-                            backgroundImage: `url("https://www.transparenttextures.com/patterns/felt.png")`, // Adds the subtle fabric grain
-                            backgroundBlendMode: 'multiply'
-                        }}
-                    >
-                        <span className="relative z-10">Book a Design Consultation</span>
-                    </button>
-
-
-                </div>
-            </section>
 
             {/* --- PRODUCT GRID (Spec Sheets) --- */}
             <section className="max-w-7xl mx-auto px-2 md:px-6 py-10 md:py-20">
+                <h3 className="text-2xl text-center md:text-5xl italic font-serif font-light mb-2 px-4">Custom Design Possibilities</h3>
+                <p className="text-center text-gray-600 mb-12 px-4">More shapes, patterns and colourways for bespoke development.</p>
                 <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-12">
                     {customrugs.map((src, index) => (
                         <div key={index} className="group cursor-pointer">
@@ -202,13 +197,83 @@ const Page = () => {
                                         alt={`Custom Rug Design ${index + 1}`}
                                         className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
                                     />
-                                    {/* <h2>Custome rugs</h2> */}
 
-                                    {/* <img src="/custom" alt="" /> */}
+
                                 </div>
                             </div>
                         </div>
                     ))}
+                </div>
+            </section>
+
+            {/* --- WHY PROFESSIONALS SECTION (Full Width) --- */}
+            <section className="bg-[#F2EEE7] py-10 md:py-10 text-center border-y border-black/5">
+                <h3 className="text-2xl md:text-3xl font-serif font-light mb-12 px-4">Why Professionals Choose North Expression</h3>
+                <div className="max-w-6xl mx-auto px-4 md:px-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-5 mb-12">
+                        {/* Left Column */}
+                        <div className="space-y-8 md:space-y-12">
+                            <div className="flex items-center gap-4 md:gap-6 text-left">
+                                <div className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center bg-[#ffffff] rounded-full">
+                                    <Pencil className="w-6 h-6 md:w-7 md:h-7 text-gray-700" />
+                                </div>
+                                <div className="flex-1">
+                                    <p className="text-lg md:text-xl text-gray-700 font-medium leading-relaxed">
+                                        Scandinavian design approach
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-4 md:gap-6 text-left">
+                                <div className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center bg-[#ffffff] rounded-full">
+                                    <Leaf className="w-6 h-6 md:w-7 md:h-7 text-gray-700" />
+                                </div>
+                                <div className="flex-1">
+                                    <p className="text-lg md:text-xl text-gray-700 font-medium leading-relaxed">
+                                        Carefully selected materials
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Right Column */}
+                        <div className="space-y-8 md:space-y-12">
+                            <div className="flex items-center gap-4 md:gap-6 text-left">
+                                <div className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center bg-[#ffffff] rounded-full">
+                                    <Layers className="w-6 h-6 md:w-7 md:h-7 text-gray-700" />
+                                </div>
+                                <div className="flex-1">
+                                    <p className="text-lg md:text-xl text-gray-700 font-medium leading-relaxed">
+                                        One bespoke rug or larger project quantities
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-4 md:gap-6 text-left">
+                                <div className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center bg-[#ffffff] rounded-full">
+                                    <Settings className="w-6 h-6 md:w-7 md:h-7 text-gray-700" />
+                                </div>
+                                <div className="flex-1">
+                                    <p className="text-lg md:text-xl text-gray-700 font-medium leading-relaxed">
+                                        Construction specified for the intended use
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Single Button */}
+                    <div className="flex justify-center">
+                        <a
+                            href="/custome_rugs_inquiry"
+                            className="relative w-fit px-8 md:px-12 py-4 text-white uppercase tracking-[0.2em] text-sm md:text-base font-medium overflow-hidden transition-all hover:brightness-105 active:scale-[0.99]"
+                            style={{
+                                backgroundColor: '#9b8b7e',
+                                backgroundImage: `url("https://www.transparenttextures.com/patterns/felt.png")`,
+                                backgroundBlendMode: 'multiply'
+                            }}
+                        >
+                            <span className="relative z-10">START YOUR CUSTOM RUG PROJECT →</span>
+                        </a>
+                    </div>
                 </div>
             </section>
         </div>

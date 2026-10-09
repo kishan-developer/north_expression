@@ -24,6 +24,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import BookConsultation from "../Shared/BookNowButton";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 type NavItem = {
   icon: LucideIcon;
@@ -41,31 +42,16 @@ export default function Header() {
   );
 
   const navItems: NavItem[] = [
-    // { icon: Home, label: "Home", href: "/" },
-
     { icon: Info, label: "About Us", href: "/about" },
 
     { icon: Server, label: "Craftsmanship", href: "/craftsmanship" },
 
     { icon: ListCollapse, label: "Collection", href: "/collection" },
 
-    // collection to catalog 
-    // { icon: ShoppingBag, label: "Catalogue", href: "/catalogue" },
 
     { icon: Server, label: "Custome Rugs", href: "/custome_rugs" },
 
-    {
-      icon: GalleryHorizontal,
-      label: "Selected Projects",
-      href: "/selected_projects",
-      subItems: [
-        { label: "Stockholm Residence", href: "/selected_projects#stockholm" },
-        { label: "Hotel Lounge Qatar", href: "/selected_projects#hotel-lounge" },
-        { label: "Hotel Room Qatar", href: "/selected_projects#hotel-room" },
-        { label: "Private Residence", href: "/selected_projects#private-residence" },
-        { label: "Visual Study", href: "/visual_study" },
-      ],
-    },
+    { icon: BadgeDollarSign, label: "Visual Stories", href: "/visual_study/" },
 
     { icon: PhoneCall, label: "Contact", href: "/contact" },
   ];
@@ -88,7 +74,7 @@ export default function Header() {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-6 pr-10 h-full">
+            <nav className="hidden lg:flex items-center gap-6 pr-10 h-full">
               {navItems.map((item) => {
                 const Icon = item.icon;
                 return (
@@ -97,7 +83,7 @@ export default function Header() {
                       href={item.href}
                       className="flex items-center gap-2 text-black text-1.5xl hover:text-[var(--charcoal)] transition h-full"
                     >
-                      <span className="text-lg flex items-center gap-1">
+                      <span className="text-lg flex font-[400] text-[#1e1e1e] items-center gap-1">
                         {item.label}
                         {item.subItems && <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform duration-300" />}
                       </span>
@@ -125,20 +111,23 @@ export default function Header() {
 
 
 
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg text-black hover:bg-gray-100 transition"
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+            {/* Language Switcher + Mobile Menu Button */}
+            <div className="flex items-center gap-3">
+              <LanguageSwitcher />
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="lg:hidden p-2 rounded-lg text-black hover:bg-gray-100 transition"
+              >
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
           </div>
         </div>
 
         {/* bg-[#B4A077]/90 */}
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 bg-white/60 shadow-sm">
+          <div className="lg:hidden border-t border-gray-200 bg-white/60 shadow-sm">
 
             <nav className="px-4 py-4 space-y-4">
               {navItems.map((item) => {

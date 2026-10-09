@@ -1,7 +1,8 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { Upload } from 'lucide-react';
 
 /* TypeScript interface for the form data */
 export interface CustomizationFormValues {
@@ -18,6 +19,13 @@ export interface CustomizationFormValues {
 
 export default function CustomizationForm() {
   const { register, handleSubmit } = useForm<CustomizationFormValues>();
+  const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setSelectedFiles(e.target.files);
+    }
+  };
 
   const onSubmit = (data: CustomizationFormValues) => {
     // console.log("Form Data Submitted:", data);
@@ -107,9 +115,32 @@ export default function CustomizationForm() {
         <textarea
           {...register("designIdeas")}
           placeholder="Describe Your Design Ideas"
-          rows={8}
+          rows={6}
           className={`${inputStyles} resize-none`}
         />
+
+        {/* Attach Files (Optional) */}
+        <div className="py-2">
+          <p className="text-[15px] font-bold text-[#4A5568] mb-2">
+            Attach Files / Reference Images <span className="font-normal text-gray-400">(Optional)</span>
+          </p>
+          <div className="relative border border-dashed border-[#B0B8C1] bg-[#FAFAFA] p-5 text-center hover:border-slate-600 transition-colors rounded-sm">
+            <input
+              type="file"
+              multiple
+              onChange={handleFileChange}
+              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+            />
+            <div className="flex flex-col items-center justify-center gap-2 pointer-events-none">
+              <Upload size={22} className="text-[#58667E]" />
+              <p className="text-sm text-[#58667E]">
+                {selectedFiles && selectedFiles.length > 0
+                  ? `${selectedFiles.length} file(s) selected: ${Array.from(selectedFiles).map(f => f.name).join(', ')}`
+                  : "Click or drag & drop files to attach (PDF, DWG, JPG, PNG)"}
+              </p>
+            </div>
+          </div>
+        </div>
 
         {/* Submit Button */}
         <div className="flex justify-center pt-6">

@@ -3,6 +3,7 @@ import Banner from "./Home_Components/Banner";
 import HeroSlider from "./Home_Components/HeroSlider";
 import AuroraSection from "./(website)/contact/AuroraSection";
 import CraftsmanshipTechniques from "./Components/Shared/CraftsmanshipTechniques";
+import Link from "next/link";
 
 
 export default function Home() {
@@ -102,87 +103,153 @@ export default function Home() {
         <CraftsmanshipTechniques />
       </div>
 
-      <div className="w-full min-h-[60vh] md:min-h-[90vh] flex flex-col text-center items-center justify-center z-50 bg-[#F8F7F4] px-2 md:px-4 py-10">
 
-        {/* Heading */}
-        <h2 className="text-3xl md:text-5xl font-semibold mb-6 font-serif text-[#2D2D2D] italic">
-          Our Collections
-        </h2>
 
-        <p className="text-[#6B6B6B] max-w-2xl mx-auto mb-5 md:mb-16 text-lg font-body">
-          Architectural Rugs Defined by Material & Structure
-        </p>
+      {/* Our Collections section */}
+      <div className="w-full min-h-[60vh] md:min-h-[90vh] flex items-center justify-center z-50 bg-[#F8F7F4] px-4 md:px-8 py-16">
+        <div className="max-w-7xl mx-auto w-full">
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
+            {/* Left Column - 4 Image Grid */}
+            <div className="w-full lg:w-1/2 flex justify-center lg:justify-start">
+              <img
+                src="/collections.png"
+                alt="Collection rug sample 1"
+                className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+              />
 
-        {/* --- COLLECTION PREVIEW SECTION --- */}
-        <div className="flex flex-col w-full md:max-w-7xl lg:flex-row gap-5 md:gap-16 items-center ">
-          {/* Large Texture Image */}
-          <div className="flex-1 w-[90%] aspect-[4/3]  relative border border-black/5 shadow-sm">
-            <div className="absolute inset-0 flex items-center justify-center text-gray-400 italic text-sm">
-              <img src="/collection/p1.png" alt="Collection Preview w-full h-full" />
             </div>
-          </div>
 
-          {/* Content & Textured Button */}
-          <div className="flex-1 space-y-8 text-start px-2 md:px-0">
-            <h3 className="text-3xl font-serif text-[#0e0e0e]">Collection Preview</h3>
+            {/* Right Column - Content */}
+            <div className="w-full lg:w-1/2 text-left">
+              {/* Small label */}
+              <p className="text-xs md:text-sm font-bold uppercase tracking-[0.3em] text-[#9b8b7e] mb-4">
+                North Expression · Heritage Craft
+              </p>
 
+              {/* Main heading */}
+              <h2 className="font-serif text-4xl md:text-5xl lg:text-5xl italic text-[#2D2D2D] leading-[1.1] mb-6">
+                Our Collections
+              </h2>
 
-            <p className="text-[#6B6B6B] max-w-2xl mx-auto  text-lg text-start font-body ">
-              North Expression presents a curated series of rug designs rooted in material honesty and structural clarity. Each piece reflects a balance between Nordic restraint and traditional craftsmanship. All designs are produced to order and tailored to project requirements.
-            </p>
+              {/* Subheading */}
+              <p className="text-lg md:text-xl text-[#6B6B6B] mb-6 font-[500px] leading-relaxed">
+                Architectural Rugs Defined by Material & Structure
+              </p>
 
-            <ul className="space-y-2 text-[#6B6B6B] list-none text-lg ">
-              <li className="flex items-center gap-3">
-                <span className="w-1.5 h-1.5 bg-[#9b8b7e] rounded-full" />
-                Material-driven designs
-              </li>
-              <li className="flex items-center gap-3">
-                <span className="w-1.5 h-1.5 bg-[#9b8b7e] rounded-full" />
-                Made to order
-              </li>
-              <li className="flex items-center gap-3">
-                <span className="w-1.5 h-1.5 bg-[#9b8b7e] rounded-full" />
-                Custom sizes available
-              </li>
-            </ul>
-
-            {/* CUSTOM TEXTURED BUTTON */}
-            <a
-              href="/collection"
-              className="px-10 py-4 text-white uppercase tracking-[0.25em] text-xs font-bold transition-all hover:brightness-110 active:scale-95 relative overflow-hidden shadow-lg"
-              style={{
-                backgroundColor: '#9b8b7e',
-                backgroundImage: `url("https://www.transparenttextures.com/patterns/felt.png")`,
-                backgroundBlendMode: 'multiply'
-              }}
-            >
-              <span className="relative z-10">Enter Collection →</span>
-            </a>
+              {/* Description */}
+              <p className="text-base md:text-lg text-[#6B6B6B]/80 mb-8 leading-relaxed max-w-xl">
+                A curated series of rug designs rooted in material honesty, structural clarity and traditional craftsmanship. Made to order and tailored to each project.
+              </p>
+              {/* CTA Button */}
+              <a
+                href="/collection"
+                className="inline-flex items-center gap-2 bg-[#2D2D2D] text-white px-8 py-4 text-sm md:text-base font-medium uppercase tracking-[0.2em] transition-all hover:bg-[#3d3d3d] hover:shadow-lg"
+              >
+                <span>Explore the Collection</span>
+                <span className="text-lg">→</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
-      
-      
+
+
+      {/* Visual Stories Section */}
+      <div className="max-w-full w-full mx-auto h-[fit] z-50 bg-[#F8F7F4] px-5 py-16 sm:px-8 md:px-10 md:py-24 lg:px-[34px]">
+        <div className="mx-auto max-w-[85%]">
+
+          {/* Header */}
+          <div className="mb-10 md:mb-5">
+            <span className="font-sans text-[11px] font-medium uppercase tracking-[0.18em] text-[#817c73] sm:text-xs">
+              Home Page Presentation
+            </span>
+            <h2 className="mt-4 font-serif text-[40px] font-normal leading-[1.02] tracking-[-0.03em] text-[#292826] sm:text-[48px] lg:text-[56px]">
+              Visual Stories
+            </h2>
+            <p className="mt-4 max-w-[620px] font-sans text-[15px] leading-[1.8] text-[#77736b] sm:text-[16px] lg:text-[17px]">
+              A short visual introduction to the ideas and environments that shape North Expression.
+            </p>
+          </div>
+
+          {/* Image Collage */}
+          <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-[1.15fr_1fr] md:gap-10 lg:gap-16">
+
+            {/* Large Left Image */}
+            <div className="flex flex-col gap-3">
+              <div className="relative aspect-[3/4] overflow-hidden md:aspect-auto md:h-[820px]">
+                <Image
+                  src="/Scandinavian_Heritage/40.png"
+                  alt="Warm interior with a round bespoke rug"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 55vw"
+                  className="object-cover"
+                />
+              </div>
+              <h1 className="text-[#292826] text-[25px] text-justify">Scandinavian Heritage</h1>
+            </div>
+
+            {/* Right Stacked Images */}
+            <div className="flex flex-col gap-6 md:gap-16 lg:gap-10 py-20">
+              <div className="flex flex-col gap-3 md:w-[92%] md:self-end">
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <Image
+                    src="/scandinavian_living/32.jpg"
+                    alt="Bright Scandinavian living room with rug"
+                    fill
+                    sizes="(max-width: 568px) 100vw, 42vw"
+                    className="object-cover"
+                  />
+                </div>
+                <h1 className="text-[#292826] text-[25px] text-justify">Scandinavian Living</h1>
+              </div>
+              <div className="flex flex-col gap-3 md:w-[92%] md:self-end">
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <Image
+                    src="/Hospitality_&_workspace/2.jpg"
+                    alt="Calm bedroom with tonal rug"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 42vw"
+                    className="object-cover"
+                  />
+                </div>
+                <h1 className="text-[#292826] text-[25px] text-justify">Hospitality & Workspace</h1>
+              </div>
+            </div>
+          </div>
+
+          {/* CTA */}
+          {/* <a
+            href="/visual_study"
+            className="group mt-10 inline-flex items-center gap-3 text-[25px] font-medium uppercase tracking-[0.18em] text-[#79543F] transition-all duration-300 hover:gap-5 hover:text-[#4F3629] sm:text-xs md:mt-14"
+          >
+            <span>EXPLORE VISUAL STORIES</span>
+            <span className="text-[14px] leading-none transition-transform duration-300 group-hover:translate-x-1">→</span>
+          </a> */}
+
+
+          <Link
+            href="/visual_study"
+            className="inline-flex items-center gap-2 bg-[#9b8b7e] text-white px-8 py-4 text-sm md:text-base font-medium uppercase tracking-[0.2em] transition-all hover:bg-[#8a7a6d] hover:shadow-lg relative overflow-hidden"
+            style={{
+              backgroundImage: `url("https://www.transparenttextures.com/patterns/felt.png")`,
+              backgroundBlendMode: 'multiply'
+            }}
+          >
+            <span className="relative z-10">EXPLORE VISUAL STORIES →</span>
+          </Link>
+
+        </div>
+      </div>
+
       {/* Aurora Section */}
-      <div className="w-full min-h-[60vh] md:min-h-[90vh] flex items-center justify-center z-50 bg-[#F8F7F4] px-4 py-10">
+      <div className="w-full flex items-center justify-center z-50 bg-[#F8F7F4]">
         <AuroraSection />
       </div>
 
 
 
-      {/* Hero Slider */}
-      <div className="w-full z-40 bg-[#F8F7F4]   md:py-0  text-center ">
 
-        {/* Heading */}
-        <h2 className="text-3xl md:text-5xl font-semibold mb-6 font-serif text-[#2D2D2D] italic">
-          Selected Projects
-        </h2>
 
-        <p className="text-[#6B6B6B] max-w-2xl mx-auto mb-5 md:mb-16 text-lg font-body px-4">
-          Rooted in material honesty and structural clarity. A balance between Nordic restraint and traditional craftsmanship.
-        </p>
-        <HeroSlider />
-      </div>
     </div>
   );
 }

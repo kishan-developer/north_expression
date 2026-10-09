@@ -1,7 +1,8 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { Upload } from 'lucide-react';
 
 /* TypeScript interface for the form data */
 export interface CustomizationFormValues {
@@ -18,6 +19,13 @@ export interface CustomizationFormValues {
 
 export default function Page() {
     const { register, handleSubmit } = useForm<CustomizationFormValues>();
+    const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length > 0) {
+            setSelectedFiles(e.target.files);
+        }
+    };
 
     const onSubmit = (data: CustomizationFormValues) => {
         // console.log("Form Data Submitted:", data);
@@ -33,14 +41,6 @@ export default function Page() {
             <header
                 className="relative bg-background text-center mt-20 md:mt-20  overflow-hidden py-[clamp(80px,12vw,140px)]  md:px-[clamp(24px,6vw,80px)]"
             >
-                {/* BACKGROUND EFFECT */}
-                {/* <div
-                    className="pointer-events-none absolute inset-0 opacity-20"
-                    style={{
-                        background: `radial-gradient(ellipse 80% 60% at 50% 120%, rgba(93,64,55,0.1) 0%, transparent 70%),repeating-linear-gradient(0deg,transparent,transparent 59px, rgba(0,0,0,0.02) 60px),repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(0,0,0,0.02) 60px)`,
-                    }}
-                /> */}
-
                 {/* CONTENT */}
                 <div className="relative z-[1] max-w-[840px] mx-auto px-2 md:px-0">
                     <p className="font-sans text-[12px] font-medium tracking-[0.3em] uppercase text-[#5d4037] mb-7">
@@ -50,11 +50,10 @@ export default function Page() {
                     <h1
                         className="font-serif font-light text-[clamp(40px,4vw,88px)] text-[#2D2D2D] leading-[1.05] tracking-[-0.01em] mb-6 italic"
                     >
-                        Custome {" "}
-                        <em className="italic text-[#5d4037]">Rug Inquiry</em>
+                        Custom {" "}
+                        <em className="italic text-[#2D2D2D]">Rug Inquiry</em>
                     </h1>
 
-                    {/* <h2 className='text-2xl mb-2'>Architectural Rugs Defined by Material & Structure</h2> */}
                     <p
                         className="font-sans font-light text-[20px] text-[#6B6B6B] max-w-4xl mx-auto tracking-[0.02em] leading-[1.7]"
                     >
@@ -63,9 +62,9 @@ export default function Page() {
                     </p>
 
                     {/* SMALL GRADIENT DIVIDER LINE */}
-                    <div
+                    {/* <div
                         className="w-[1px] h-14 mt-9 mx-auto bg-gradient-to-b from-[#5d4037] to-transparent"
-                    />
+                    /> */}
                 </div>
             </header>
             <section className="max-w-4xl mx-auto p-2 md:p-12 bg-white min-h-screen">
@@ -147,14 +146,37 @@ export default function Page() {
                     <textarea
                         {...register("designIdeas")}
                         placeholder="Describe Your Design Ideas"
-                        rows={8}
+                        rows={6}
                         className={`${inputStyles} resize-none`}
                     />
 
+                    {/* Attach Files (Optional) */}
+                    <div className="py-2">
+                        <p className="text-[15px] font-bold text-[#4A5568] mb-2">
+                            Attach Files / Reference Images <span className="font-normal text-gray-400">(Optional)</span>
+                        </p>
+                        <div className="relative border border-dashed border-[#B0B8C1] bg-[#FAFAFA] p-5 text-center hover:border-slate-600 transition-colors rounded-sm">
+                            <input
+                                type="file"
+                                multiple
+                                onChange={handleFileChange}
+                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                            />
+                            <div className="flex flex-col items-center justify-center gap-2 pointer-events-none">
+                                <Upload size={22} className="text-[#58667E]" />
+                                <p className="text-sm text-[#58667E]">
+                                    {selectedFiles && selectedFiles.length > 0
+                                        ? `${selectedFiles.length} file(s) selected: ${Array.from(selectedFiles).map(f => f.name).join(', ')}`
+                                        : "Click or drag & drop files to attach (PDF, DWG, JPG, PNG)"}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
                     {/* Submit Button */}
                     <div className="flex justify-center pt-6">
-                        <a
-                            href="/"
+                        <button
+                            type="submit"
                             className="relative w-fit px-3 md:px-10 py-4 text-white uppercase tracking-[0.2em] text-sm font-medium overflow-hidden transition-all hover:brightness-105 active:scale-[0.99]"
                             style={{
                                 backgroundColor: '#9b8b7e',
@@ -163,10 +185,9 @@ export default function Page() {
                             }}
                         >
                             <span className="relative z-10"> Submit Your Request →</span>
-                        </a>
+                        </button>
                     </div>
 
-                    
                 </form>
             </section>
         </section>

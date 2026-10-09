@@ -12,7 +12,7 @@ const WhyContactUs = () => {
         {/* Section Header */}
         <div className="text-center mb-20">
           <h2 className="text-2xl md:text-5xl font-light text-[#2D2D2D]">
-            Why <span className="text-[#A38A7E]">Contact Us?</span>
+            Why <span className="text-[#2D2D2D]">Contact Us?</span>
           </h2>
           <div className="h-[1px] w-20 bg-[#A38A7E] mx-auto mt-6 mb-6" />
           <p className="font-sans text-gray-500 text-lg max-w-2xl mx-auto leading-relaxed ">

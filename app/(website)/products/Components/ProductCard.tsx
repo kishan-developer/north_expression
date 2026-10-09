@@ -73,9 +73,9 @@ const ProductCard = ({ product, onView }: Props) => {
             {product.name}
           </h3>
 
-          <p className="text-white/60 text-sm leading-relaxed line-clamp-3">
+          {/* <p className="text-white/60 text-sm leading-relaxed line-clamp-3">
             {product.description}
-          </p>
+          </p> */}
         </div>
 
         <button

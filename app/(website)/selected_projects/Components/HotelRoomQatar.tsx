@@ -30,11 +30,11 @@ const HotelProjectPage = () => {
 
       {/* Header Section */}
       <div className=" pb-6">
-        <h1 className="text-3xl md:text-5xl font-light mb-2 font-serif">
+        <h1 className="text-3xl text-[#2D2D2D] md:text-5xl font-light mb-2 font-serif">
           Hotel Room — Qatar
         </h1>
 
-        <p className="text-xs md:text-sm uppercase tracking-widest text-gray-900 font-serif italic">
+        <p className="text-xs md:text-sm uppercase tracking-widest text-[#2D2D2D] font-serif italic">
           Hospitality — Custom Rug Concept
         </p>
       </div>
@@ -44,15 +44,15 @@ const HotelProjectPage = () => {
       {/* 2. Project Overview */}
       <section className="max-w-6xl mx-auto py-12 md:py-2  px-0 ">
         <div className="space-y-5 text-base md:text-[22px] leading-relaxed">
-          <p className="font-medium  font-serif ">
+          <p className="font-medium  font-serif text-[#6B6B6B] ">
             A bespoke rug developed for a luxury hotel suite in Qatar.
           </p>
 
-          <p className="font-serif ">
+          <p className="font-serif text-[#6B6B6B] ">
             The custom geometry aligns with the architectural layout, integrating seamlessly around the bed zone while enhancing acoustic comfort and spatial flow.
           </p>
 
-          <p className="font-serif ">
+          <p className="font-serif text-[#6B6B6B] ">
             Natural tonal contrasts introduce subtle movement without disrupting the calm visual language of the interior.
           </p>
         </div>
@@ -62,11 +62,11 @@ const HotelProjectPage = () => {
       <section className="max-w-6xl mx-auto py-12 md:py-10 px-4 md:px-6 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 text-sm">
 
         <div>
-          <h3 className="uppercase tracking-widest font-bold mb-6 text-lg text-gray-900 font-serif ">
+          <h3 className="uppercase tracking-widest font-bold mb-6 text-lg text-[#2D2D2D] font-serif ">
             Project Details
           </h3>
 
-          <div className="space-y-3 font-body text-lg">
+          <div className="space-y-3 font-body text-lg text-[#6B6B6B]">
             <p><span className="font-medium">Sector:</span> Hospitality</p>
             <p><span className="font-medium">Location:</span> Qatar</p>
             <p><span className="font-medium">Project Type:</span> Custom Commission</p>
@@ -76,17 +76,17 @@ const HotelProjectPage = () => {
         </div>
 
         <div>
-          <h3 className="uppercase tracking-widest font-bold mb-6 text-lg text-gray-900 font-serif">
+          <h3 className="uppercase tracking-widest font-bold mb-6 text-lg text-[#2D2D2D] font-serif">
             Details
           </h3>
 
-          <div className="space-y-3 text-lg">
+          <div className="space-y-3 text-lg text-[#6B6B6B]">
             <p><span className="font-medium">Scope:</span> Cut & Finish</p>
             <p><span className="font-medium">Material:</span> New Zealand Wool & Tencel</p>
 
             <div className="pt-2">
-              <p className="font-medium text-lg">• Custom Shape</p>
-              <p className="text-gray-900 italic text-lg md:text-lg">
+              <p className="font-medium text-lg text-[#2D2D2D]">• Custom Shape</p>
+              <p className="text-[#6B6B6B] italic text-lg md:text-lg">
                 Compatible with Furniture layout
               </p>
             </div>
@@ -106,7 +106,7 @@ const HotelProjectPage = () => {
               Concept & Production
             </h2>
 
-            <div className="space-y-4 text-gray-900 leading-relaxed text-lg md:text-1xl font-body">
+            <div className="space-y-4 text-[#6B6B6B] leading-relaxed text-lg md:text-1xl font-body">
               <p>
                 From initial floor study to final finishing, the rug was
                 developed to maintain structural clarity and durability
@@ -162,7 +162,7 @@ const HotelProjectPage = () => {
           </div>
 
         </div>
-        <h2 className="text-lg sm:text-xl md:text-2xl mt-10 font-light ">
+        <h2 className="text-lg sm:text-xl md:text-2xl mt-10 font-light text-[#2D2D2D]">
           Crafted for longevity. Designed for architectural balance.
         </h2>
 

@@ -11,25 +11,25 @@ interface Technique {
 const techniques: Technique[] = [
   {
     title: "Flat Woven",
-    description: "Lightweight rugs with a flat reversible weave – durable and ideal for modern interiors.",
+    description: "Lightweight, durable and ideal for contemporary interiors.",
     image: "/North_Expression_Craftsmanship_Techniques/4.png",
 
   },
   {
     title: "Hand Loom",
-    description: "Refined woven rugs with soft pile for subtle depth for residential and hospitality.",
+    description: "Refined woven rugs with soft pil and subtle depth.",
     image: "/North_Expression_Craftsmanship_Techniques/1.png",
   },
   {
     title: "Hand Knotted",
-    description: "Luxurious dense rugs crafted knot by knot with geometric pastel expressions.",
-    image: "/North_Expression_Craftsmanship_Techniques/3.png",
+    description: "Crafted knot by knot for exceptional depth and longevity.",
+    image: "/Hand_T.png",
   },
   {
     title: "Hand Tufted",
-    description: "Contemporary rugs with sculpted patterns, offering fast production and design ",
+    description: "Sculptural rugs offering exceptional creative freedom.",
 
-    image: "/North_Expression_Craftsmanship_Techniques/2.png",
+    image: "/Hand_tufted.png",
   },
 ];
 
@@ -64,7 +64,7 @@ export default function CraftsmanshipTechniques() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-2 md:p-6 text-left">
                   <h3 className="text-xl font-semibold mb-2 text-white font-serif">{item.title}</h3>
-                  <p className="text-gray-200 text-lg leading-relaxed font-body line-clamp-2">
+                  <p className="text-gray-200 text-md leading-relaxed font-body line-clamp-2">
                     {item.description}
                   </p>
                 </div>

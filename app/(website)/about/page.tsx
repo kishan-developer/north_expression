@@ -43,9 +43,9 @@ export default function page() {
                     </p>
 
                     {/* SMALL GRADIENT DIVIDER LINE */}
-                    <div
+                    {/* <div
                         className="w-[1px] h-14 mt-9 mx-auto bg-gradient-to-b from-[#5d4037] to-transparent"
-                    />
+                    /> */}
                 </div>
             </header>
 

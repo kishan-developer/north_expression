@@ -28,7 +28,7 @@ const Page = () => {
                         className="font-serif font-light text-[clamp(40px,4vw,88px)] text-[#2D2D2D] leading-[1.05] tracking-[-0.01em] mb-6 italic"
                     >
                         Our {" "}
-                        <em className="italic text-[#5d4037]">Collections</em>
+                        <em className="italic text-[#2D2D2D]">Collections</em>
                     </h1>
 
                     <h2 className='text-2xl mb-2'>Architectural Rugs Defined by Material & Structure</h2>
@@ -40,84 +40,48 @@ const Page = () => {
                     </p>
 
                     {/* SMALL GRADIENT DIVIDER LINE */}
-                    <div
+                    {/* <div
                         className="w-[1px] h-14 mt-9 mx-auto bg-gradient-to-b from-[#5d4037] to-transparent"
-                    />
+                    /> */}
                 </div>
             </header>
 
-            {/* --- COLLECTION PREVIEW SECTION --- */}
-            <section className="max-w-7xl mx-auto px-6 py-0 md:py-16">
-                <div className="flex flex-col lg:flex-row gap-16 items-center">
-                    {/* Large Texture Image */}
-                    <div className="flex-1 w-full aspect-[4/3] relative border border-black/5 shadow-sm">
-                        <div className="absolute inset-0 flex items-center justify-center text-gray-400 italic text-sm">
-                            <img src="/collection/p1.png" alt="Collection Preview w-full h-full" />
-                        </div>
-                    </div>
-
-                    {/* Content & Textured Button */}
-                    <div className="flex-1 space-y-8">
-                        <h3 className="text-3xl font-serif text-[#0e0e0e]">Collection Preview</h3>
-                        <ul className="space-y-4 text-[#6B6B6B] list-none text-lg">
-                            <li className="flex items-center gap-3">
-                                <span className="w-1.5 h-1.5 bg-[#9b8b7e] rounded-full" />
-                                Material-driven designs
-                            </li>
-                            <li className="flex items-center gap-3">
-                                <span className="w-1.5 h-1.5 bg-[#9b8b7e] rounded-full" />
-                                Made to order
-                            </li>
-                            <li className="flex items-center gap-3">
-                                <span className="w-1.5 h-1.5 bg-[#9b8b7e] rounded-full" />
-                                Custom sizes available
-                            </li>
-                        </ul>
-
-                        {/* CUSTOM TEXTURED BUTTON */}
-                        <button
-                            className="px-10 py-4 text-white uppercase tracking-[0.25em] text-xs font-bold transition-all hover:brightness-110 active:scale-95 relative overflow-hidden shadow-lg"
-                            style={{
-                                backgroundColor: '#9b8b7e',
-                                backgroundImage: `url("https://www.transparenttextures.com/patterns/felt.png")`,
-                                backgroundBlendMode: 'multiply'
-                            }}
-                        >
-
-
-                            <Link href="/collection/collections_list">
-                                <span className="relative z-10">Enter Collection →</span>
-                            </Link>
-                        </button>
-                    </div>
-                </div>
-            </section>
 
             {/* --- COLLECTION GRID --- */}
             <section className="max-w-7xl mx-auto px-6 py-20 text-center border-t border-black/5">
                 <h3 className="text-3xl font-serif mb-10 tracking-tight">Collection Grid</h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
                     {/* Card 1 */}
                     <CollectionCard
-                        img="/collection/p1.png"
-                        title="Lund Collection"
-                        type="Hand Collection"
+                        img="/collection_category_images/041_fen_gray.jpg"
+                        title="Hand Loom"
+                        type="Hand Loom"
                         desc="Soft structural geometry inspired by Nordic landscapes."
+                        categorySlug="hand-loom"
                     />
                     {/* Card 2 */}
                     <CollectionCard
-                        img="/collection/p2.png"
-                        title="Falun Collection"
-                        type="Hand Loom"
+                        img="/collection_category_images/106_ridge_rust-and-ivory.jpg"
+                        title="Flat weave"
+                        type="Flat weave"
                         desc="Timeless minimalism with tactile plains and subtle graphic."
+                        categorySlug="flat-weave"
                     />
                     {/* Card 3 */}
                     <CollectionCard
-                        img="/collection/p3.jpeg"
-                        title="Stockholm Collection"
-                        type="Hand Loom"
+                        img="/collection_category_images/104_ray_taupe-and-ochre.jpg"
+                        title="Hand Knotted"
+                        type="Hand Knotted"
                         desc="Contemporary textures balancing refinement and comfort."
+                        categorySlug="hand-knotted"
+                    />
+                    <CollectionCard
+                        img="/collection_category_images/058_moonstone_pearl-and-mocha.jpg"
+                        title="Hand Tufted"
+                        type="Hand Tufted"
+                        desc="Contemporary textures balancing refinement and comfort."
+                        categorySlug="hand-tufted"
                     />
                 </div>
 
@@ -134,9 +98,9 @@ const Page = () => {
 
 
 // Internal Card Component for consistency
-const CollectionCard = ({ title, type, desc, img }: { title: string, type: string, desc: string, img: string }) => (
-    <div className="flex flex-col group cursor-pointer">
-        <div className="bg-white/30 border border-black/5 p-4 transition-all duration-500 group-hover:bg-white/60 group-hover:shadow-xl">
+const CollectionCard = ({ title, type, desc, img, categorySlug }: { title: string, type: string, desc: string, img: string, categorySlug: string }) => (
+    <Link href={`/collection/collections_list?category=${categorySlug}`} className="flex flex-col group cursor-pointer">
+        <div className="bg-white border border-black/5 p-4 transition-all duration-500 group-hover:bg-white/70 group-hover:shadow-xl">
             {/* Image Placeholder */}
             <div className="aspect-[3/4] bg-stone-200 mb-8 flex items-center justify-center italic text-[10px] text-stone-400 border border-black/5 overflow-hidden">
                 <img src={img} alt={title} className="w-full h-full object-cover" />
@@ -144,20 +108,20 @@ const CollectionCard = ({ title, type, desc, img }: { title: string, type: strin
 
             <div className="space-y-3 px-2 pb-6">
                 <h4 className="text-2xl font-serif text-[#0e0e0e]">{title}</h4>
-                <p className="text-[18px] uppercase tracking-[0.2em] text-gray-600 font-bold">{type}</p>
-                <p className="text-lg text-gray-600 leading-relaxed max-w-[300px] md:max-w-[220px] mx-auto">
+                {/* <p className="text-[18px] uppercase tracking-[0.2em] text-gray-600 font-bold">{type}</p> */}
+                {/* <p className="text-lg text-gray-600 leading-relaxed max-w-[300px] md:max-w-[220px] mx-auto">
                     {desc}
-                </p>
-                <div className="pt-4">
+                </p> */}
+                {/* <div className="pt-4">
                     <Link href="/collection/collections_list">
                         <span className="text-lg font-bold uppercase tracking-widest text-gray-800 group-hover:text-[#2D2D2D] transition-colors">
-                            → View Details
+                            → View Collect
                         </span>
                     </Link>
-                </div>
+                </div> */}
             </div>
         </div>
-    </div>
+    </Link>
 );
 
 export default Page;

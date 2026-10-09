@@ -21,11 +21,11 @@ export default function HotelLoungeQatar() {
 
       {/* Header Section */}
       <div className="border-b border-gray-700 pb-6">
-        <h1 className="text-3xl md:text-5xl font-light mb-2 font-serif">
+        <h1 className="text-3xl text-[#2D2D2D] md:text-5xl font-light mb-2 font-serif">
           Hotel Lounge — Qatar
         </h1>
 
-        <p className="text-xs md:text-sm uppercase tracking-widest text-gray-900 font-serif italic">
+        <p className="text-xs md:text-sm uppercase tracking-widest text-[#2D2D2D] font-serif italic">
           Hospitality Custom Rug Project
         </p>
       </div>
@@ -39,7 +39,7 @@ export default function HotelLoungeQatar() {
             Project Overview
           </h2>
 
-          <p className="leading-relaxed text-gray-900 text-lg font-body">
+          <p className="leading-relaxed text-[#6B6B6B] text-lg font-body">
             A bespoke rug concept developed for a luxury hotel lounge in Qatar—
             designed to define seating areas, soften acoustics, and introduce a
             calm, contemporary atmosphere within a high-traffic space
@@ -48,7 +48,7 @@ export default function HotelLoungeQatar() {
 
         {/* Project Details */}
         <div>
-          <h2 className="text-lg md:text-xl font-semibold mb-4 font-serif">
+          <h2 className="text-lg text-[#2D2D2D] md:text-xl font-semibold mb-4 font-serif">
             Project Details
           </h2>
 
@@ -117,11 +117,11 @@ export default function HotelLoungeQatar() {
 
         {/* Materials */}
         <div className="space-y-5">
-          <h3 className="text-lg font-semibold font-serif">
+          <h3 className="text-lg text-[#2D2D2D] font-semibold font-serif">
             Materials & Construction
           </h3>
 
-          <ul className="text-gray-900 space-y-3 text-lg">
+          <ul className="text-[#6B6B6B] space-y-3 text-lg">
             <li>• Moen veiblord fo Raabilt ind contar</li>
             <li>• Sett cresl patrie to vorgate eith eserbb a tood</li>
             <li>• Custom organic shape designed around lounge seating</li>
@@ -140,7 +140,7 @@ export default function HotelLoungeQatar() {
         <div className="space-y-5">
           <h3 className="text-lg md:text-xl font-semibold font-serif">Result</h3>
 
-          <p className="text-gray-900 leading-relaxed text-lg font-body">
+          <p className="text-[#6B6B6B] leading-relaxed text-lg font-body">
             The rug creates a visual foundation for the lounge seating while
             adding acoustic comfort and softening the architectural space,
             delivering a calm luxury hospitality environment.

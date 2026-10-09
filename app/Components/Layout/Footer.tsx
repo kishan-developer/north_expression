@@ -28,20 +28,21 @@ export default function Footer() {
       { name: "Craftsmanship", href: "/craftsmanship" },
       { name: "Collection", href: "/collection" },
       { name: "Custome Rugs", href: "/custome_rugs" },
-      { name: "Selected Projects", href: "selected_projects" },
+      // { name: "Selected Projects", href: "selected_projects" },
+      { name: "Visual Study", href: "/visual_study" },
       { name: "Contact", href: "/contact" }
     ],
     policies: [
-      { name: "Privacy Policy", href: "#" },
-      { name: "Terms of Service", href: "#" },
-      { name: "Cookie Policy", href: "#" },
-      { name: "Refund Policy", href: "#" }
+      { name: "Privacy Policy", href: "/privacy" },
+      { name: "Terms & Conditions", href: "/terms" },
+      { name: "Cookie Policy", href: "/cookie" },
+      { name: "Refund Policy", href: "/refund" }
     ],
     contact: [
-      { icon: Mail, label: "General information", text: "info@northexpression.com ", href: "mailto:info@northexpression.com" },
+      { icon: Mail, label: "General information", text: "info@northexpression.com", href: "mailto:info@northexpression.com" },
       { icon: Mail, label: "Inquiry and consultation", text: "inquiry@northexpression.com", href: "mailto:inquiry@northexpression.com" },
-      { icon: Phone, label: "Telephone and Whatsapp", text: "+46707299390", href: "tel:+46-812-166-128" },
-      { icon: BoxIcon, label: "EU VAT number:", text: "SE556696118301", href: "SE556696118301" }
+      { icon: Phone, label: "Telephone and Whatsapp", text: "+46 70 729 93 90", href: "tel:+46707299390" },
+      { icon: BoxIcon, label: "EU VAT number:", text: "SE556709884201", href: "SE556709884201" }
     ],
     socials: [
       { Icon: Facebook, href: "#" },

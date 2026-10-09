@@ -7,11 +7,11 @@ export default function StockholmSection() {
 
       {/* Title */}
       <div className="text-center space-y-2">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-wide font-serif">
+        <h1 className="text-2xl text-[#2D2D2D] sm:text-3xl md:text-4xl font-semibold tracking-wide font-serif">
           Private Residence - Stockholm
         </h1>
 
-        <p className="text-gray-900 text-lg md:text-2xl font-serif ">
+        <p className="text-[#2D2D2D] text-lg md:text-2xl font-serif ">
           Residential · Concept Project
         </p>
       </div>
@@ -27,7 +27,7 @@ export default function StockholmSection() {
       </div> */}
 
       {/* Description */}
-      <div className="max-w-4xl mx-auto text-center text-lg md:text-[22px] leading-relaxed text-gray-900 font-serif">
+      <div className="max-w-4xl mx-auto text-center text-lg md:text-[22px] leading-relaxed text-[#6B6B6B] font-serif">
         <p>
           A calm and contemporary living room where the carpet becomes the defining element of the space. Its soft green gradient brings depth, balance, and a quiet sense of movement to the interior, while anchoring the seating area with a refined and modern expression. The overall composition creates a harmonious residential setting with a strong focus on tone, proportion, and material presence.
         </p>
@@ -35,11 +35,11 @@ export default function StockholmSection() {
 
       {/* Project Details */}
       <div className="max-w-4xl mx-auto border-t border-gray-700 pt-8">
-        <h2 className="text-2xl font-medium mb-4 text-center md:text-left font-body">
+        <h2 className="text-2xl text-[#6B6B6B] font-medium mb-4 text-center md:text-left font-body">
           Project Details
         </h2>
 
-        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-900 text-lg font-body">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[#6B6B6B] text-lg font-body">
           <li>
             <strong>Sector:</strong> Residential
           </li>
@@ -87,12 +87,12 @@ export default function StockholmSection() {
       </div>
 
       {/* Caption */}
-      <p className="text-gray-900 italic text-1xl text-center font-serif">
+      <p className="text-[#6B6B6B] italic text-1xl text-center font-serif">
         Process (unfinished rug in production)
       </p>
 
       {/* Final Paragraph */}
-      <div className="max-w-4xl mx-auto text-center text-1xl md:text-[22px] leading-relaxed text-gray-900 font-serif ">
+      <div className="max-w-4xl mx-auto text-center text-1xl md:text-[22px] leading-relaxed text-[#6B6B6B] font-serif ">
         <p className="text-lg md:text-[22px]">
           A private residential living room concept focused on refined Stockholm
           design sensibilities — calm, contemporary, and material-driven. The
